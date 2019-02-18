@@ -9,7 +9,7 @@
 
 > 或者您可以 "follow" 一下，该项目将持续更新，不断完善功能。
 
-> 项目交流QQ群：117187576 (已满 ) 168918237
+> 项目交流QQ群： 168918237   117187576 (已满 )
 
 > 如有问题或者好的建议可以在 Issues 中提。
 
@@ -27,7 +27,7 @@
 
 > 后台管理系统
 
-
+前端项目`mall-admin-web`地址：https://github.com/macrozheng/mall-admin-web 
 
 项目演示地址： [http://39.98.190.128/index.html](http://39.98.190.128/index.html)  
   
@@ -38,7 +38,7 @@
 
 > 前台商城系统
 
-- 前端项目`mall-admin-web`  地址 请加群下载  117187576 168918237
+- 前端项目`mall-admin-web`  地址 请加群下载   168918237
 - h5前端项目`vue-js-master`地址 请加群下载  
 - pc前端项目`Mall-Vue-master`地址 请加群下载  
 - 小前端项目`wechatapp`地址 请加群下载
@@ -71,6 +71,10 @@ mall
 ├── mall-admin -- 后台商城管理系统接口
 ├── mall-search -- 基于Elasticsearch的商品搜索系统
 ├── mall-portal -- 前台商城系统接口
+├── 前端项目`mall-admin-web`  地址 请加群下载   168918237
+├── h5前端项目`vue-js-master`地址 请加群下载  
+├── pc前端项目`Mall-Vue-master`地址 请加群下载  
+├── 小前端项目`wechatapp`地址 请加群下载
 ```
 
 ### 技术选型
