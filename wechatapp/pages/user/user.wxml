@@ -1,0 +1,275 @@
+<view class="user-info flex-row">
+  <image class="user-info-bg" mode="aspectFill" src="/images/img-user-bg.png" />
+  <view class="flex-grow-1 flex-y-center flex-row">
+    <view class="flex-grow-0">
+      <image class="avatar" src="{{user_info.icon}}" />
+    </view>
+    <view class="flex-grow-1">
+      <text class="user-name">{{user_info.nickname}}</text>
+    </view>
+  </view>
+  <view class="flex-grow-0 flex-y-center">
+    <navigator class="my-address flex-y-center" url="/pages/address/address">
+      <image src="/images/icon-address.png" />
+      <text>收货地址</text>
+    </navigator>
+  </view>
+</view>
+<view class="order-block">
+  <navigator class="my-order" url="/pages/order/order?status=-1">我的订单</navigator>
+  <view class="flex-row">
+
+    <view class="flex-grow-1">
+      <navigator class="nav-item" url="/pages/order/order?status=0">
+        <view>
+          <image src="/images/icon-order-0.png" />
+        </view>
+        <view>待付款</view>
+        <view class="num-icon" wx:if="{{order_count.status_0 && order_count.status_0 > 0}}">
+          {{order_count.status_0}}
+        </view>
+      </navigator>
+    </view>
+    <view class="flex-grow-1">
+      <navigator class="nav-item" url="/pages/order/order?status=1">
+        <view>
+          <image src="/images/icon-order-1.png" />
+        </view>
+        <view>待发货</view>
+        <view class="num-icon">
+3
+        </view>
+      </navigator>
+    </view>
+    <view class="flex-grow-1">
+      <navigator class="nav-item" url="/pages/order/order?status=2">
+        <view>
+          <image src="/images/icon-order-2.png" />
+        </view>
+        <view>已发货</view>
+        <view class="num-icon" wx:if="{{order_count.status_2 && order_count.status_2 > 0}}">
+          {{order_count.status_2}}
+        </view>
+      </navigator>
+    </view>
+    <view class="flex-grow-1">
+      <navigator class="nav-item" url="/pages/order/order?status=3">
+        <view>
+          <image src="/images/icon-order-3.png" />
+        </view>
+        <view>已完成</view>
+      </navigator>
+    </view>
+    <view class="flex-grow-1">
+      <navigator class="nav-item" url="/pages/order/order?status=4">
+        <view>
+          <image src="/images/icon-order-4.png" />
+        </view>
+        <view>已关闭</view>
+      </navigator>
+    </view>
+  </view>
+</view>
+
+<view class="option-list">
+
+
+  <block>
+    <view wx:if="{{user_info.memberState != 1}}">
+      <view class="option-item" bindtap="apply">
+        <view class="flex-row option-content">
+          <view class="flex-grow-1 flex-row">
+            <view class="flex-grow-0 flex-y-center">
+              <image class="option-icon" src="/images/icon-user-fx.png" />
+            </view>
+            <view class="flex-grow-1 flex-y-center">
+              成为分销商
+            </view>
+          </view>
+          <view class="flex-grow-0 flex-y-center">
+            <image class="option-jisntou" src="/images/icon-jiantou-r.png" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:elif="{{user_info.memberState == 1}}">
+      <navigator class="option-item" url="/pages/share/index">
+        <view class="flex-row option-content">
+          <view class="flex-grow-1 flex-row">
+            <view class="flex-grow-0 flex-y-center">
+              <image class="option-icon" src="/images/icon-user-fx.png" />
+            </view>
+            <view class="flex-grow-1 flex-y-center">
+              分销中心
+            </view>
+          </view>
+          <view class="flex-grow-0 flex-y-center">
+            <image class="option-jisntou" src="/images/icon-jiantou-r.png" />
+          </view>
+        </view>
+      </navigator>
+    </view>
+  </block>
+
+
+  <navigator class="option-item" url="/pages/coupon/coupon">
+    <view class="flex-row option-content">
+      <view class="flex-grow-1 flex-row">
+        <view class="flex-grow-0 flex-y-center">
+          <image class="option-icon" src="/images/icon-user-yhq.png" />
+        </view>
+        <view class="flex-grow-1 flex-y-center">
+          我的优惠券
+        </view>
+      </view>
+      <view class="flex-grow-0 flex-y-center">
+        <image class="option-jisntou" src="/images/icon-jiantou-r.png" />
+      </view>
+    </view>
+  </navigator>
+
+  <navigator class="option-item" url="/pages/coupon-list/coupon-list">
+    <view class="flex-row option-content">
+      <view class="flex-grow-1 flex-row">
+        <view class="flex-grow-0 flex-y-center">
+          <image class="option-icon" src="/images/icon-user-lingqu.png" />
+        </view>
+        <view class="flex-grow-1 flex-y-center">
+          领券中心
+        </view>
+      </view>
+      <view class="flex-grow-0 flex-y-center">
+        <image class="option-jisntou" src="/images/icon-jiantou-r.png" />
+      </view>
+    </view>
+  </navigator>
+
+  <navigator class="option-item" url="/pages/favorite/favorite">
+    <view class="flex-row option-content">
+      <view class="flex-grow-1 flex-row">
+        <view class="flex-grow-0 flex-y-center">
+          <image class="option-icon" src="/images/icon-user-sc.png" />
+        </view>
+        <view class="flex-grow-1 flex-y-center">
+          我的收藏
+        </view>
+      </view>
+      <view class="flex-grow-0 flex-y-center">
+        <image class="option-jisntou" src="/images/icon-jiantou-r.png" />
+      </view>
+    </view>
+  </navigator>
+
+  <navigator class="option-item" style="display: none">
+    <view class="flex-row option-content">
+      <view class="flex-grow-1 flex-row">
+        <view class="flex-grow-0 flex-y-center">
+          <image class="option-icon" src="/images/icon-user-yj.png" />
+        </view>
+        <view class="flex-grow-1 flex-y-center">
+          我的佣金
+        </view>
+      </view>
+      <view class="flex-grow-0 flex-y-center">
+        <image class="option-jisntou" src="/images/icon-jiantou-r.png" />
+      </view>
+    </view>
+  </navigator>
+
+  <navigator class="option-item" style="display: none">
+    <view class="flex-row option-content">
+      <view class="flex-grow-1 flex-row">
+        <view class="flex-grow-0 flex-y-center">
+          <image class="option-icon" src="/images/icon-user-xx.png" />
+        </view>
+        <view class="flex-grow-1 flex-y-center">
+          我的下线
+        </view>
+      </view>
+      <view class="flex-grow-0 flex-y-center">
+        <image class="option-jisntou" src="/images/icon-jiantou-r.png" />
+      </view>
+    </view>
+  </navigator>
+
+  <button open-type="contact" class="option-item" plain="true">
+    <view class="flex-row option-content">
+      <view class="flex-grow-1 flex-row">
+        <view class="flex-grow-0 flex-y-center">
+          <image class="option-icon" src="/images/icon-user-kf.png" />
+        </view>
+        <view class="flex-grow-1 flex-y-center">
+          在线客服
+        </view>
+      </view>
+      <view class="flex-grow-0 flex-y-center">
+        <image class="option-jisntou" src="/images/icon-jiantou-r.png" />
+      </view>
+    </view>
+  </button>
+
+  <navigator data-tel="{{user_info.phone}}" bindtap="callTel" class="option-item" wx:if="{{user_info.phone!=''}}">
+    <view class="flex-row option-content">
+      <view class="flex-grow-1 flex-row">
+        <view class="flex-grow-0 flex-y-center">
+          <image class="option-icon" src="/images/icon-user-lx.png" />
+        </view>
+        <view class="flex-grow-1 flex-y-center">
+          联系我们
+        </view>
+      </view>
+      <view class="flex-grow-0 flex-y-center">
+        <image class="option-jisntou" src="/images/icon-jiantou-r.png" />
+      </view>
+    </view>
+  </navigator>
+
+  <navigator class="option-item" url="/pages/article-list/article-list?id=2">
+    <view class="flex-row option-content">
+      <view class="flex-grow-1 flex-row">
+        <view class="flex-grow-0 flex-y-center">
+          <image class="option-icon" src="/images/icon-help.png" />
+        </view>
+        <view class="flex-grow-1 flex-y-center">
+          服务中心
+        </view>
+      </view>
+      <view class="flex-grow-0 flex-y-center">
+        <image class="option-jisntou" src="/images/icon-jiantou-r.png" />
+      </view>
+    </view>
+  </navigator>
+  <navigator class="option-item" url="/pages/article-detail/article-detail?id=about_us">
+    <view class="flex-row option-content">
+      <view class="flex-grow-1 flex-row">
+        <view class="flex-grow-0 flex-y-center">
+          <image class="option-icon" src="/images/icon-about-us.png" />
+        </view>
+        <view class="flex-grow-1 flex-y-center">
+          关于我们
+        </view>
+      </view>
+      <view class="flex-grow-0 flex-y-center">
+        <image class="option-jisntou" src="/images/icon-jiantou-r.png" />
+      </view>
+    </view>
+  </navigator>
+  <block wx:if="{{user_info.is_clerk == 1}}">
+    <view class="option-item" bindtap='verify'>
+      <view class="flex-row option-content">
+        <view class="flex-grow-1 flex-row">
+          <view class="flex-grow-0 flex-y-center">
+            <image class="option-icon" src="/images/icon-offline.png" />
+          </view>
+          <view class="flex-grow-1 flex-y-center">
+            线下核销
+          </view>
+        </view>
+        <view class="flex-grow-0 flex-y-center">
+          <image class="option-jisntou" src="/images/icon-jiantou-r.png" />
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+<include src="/commons/copyright/copyright.wxml" />

@@ -1,0 +1,18 @@
+<view class="info">
+  <form bindsubmit="formSubmit">
+    <view class="info-block">
+      <view class="info-title flex-row">
+        <view class="info-label flex-y-center blod big">剩余金额：{{price}}元</view>
+      </view>
+      <view class="info-content flex-row">
+        <view class="info-label flex-y-center blod big">
+          <input name="cash" class="cash-input" placeholder="输入转出金额" />
+        </view>
+      </view>
+    </view>
+    <view class="info-min">提现金额不能小于{{share_setting.min_money}}元</view>
+    <view class="info-footer">
+      <button class="info-btn"  formType="submit">提交申请</button>
+    </view>
+  </form>
+</view>

@@ -1,0 +1,4 @@
+<import src="../image.wxml"/>
+<view class="applet-netError-view">
+  <template is="image" data="{{src:'/images/netError.png',style:'applet-netError-view-image',bindtap:'onPullDownRefresh'}}"></template>
+</view>

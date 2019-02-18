@@ -1,0 +1,82 @@
+{
+  "pages": [
+    "pages/allow/allow",
+
+    "pages/index/index",
+
+    "pages/cart/cart",
+    "pages/goods/goods",
+    "pages/list/list",
+    "pages/user/user",
+    "pages/search/search",
+    "pages/order-submit/order-submit",
+    "pages/order/order",
+    "pages/order-detail/order-detail",
+    "pages/address/address",
+    "pages/address-edit/address-edit",
+    "pages/address-picker/address-picker",
+    "pages/test/test",
+    "pages/favorite/favorite",
+    "pages/order-refund/order-refund",
+    "pages/order-refund-detail/order-refund-detail",
+    "pages/add-share/index",
+    "pages/share/index",
+    "pages/cash/cash",
+    "pages/share-money/share-money",
+    "pages/cash-detail/cash-detail",
+    "pages/share-team/share-team",
+    "pages/share-order/share-order",
+    "pages/share-qrcode/share-qrcode",
+    "pages/order-comment/order-comment",
+    "pages/article-list/article-list",
+    "pages/article-detail/article-detail",
+    "pages/express-detail/express-detail",
+    "pages/cat/cat",
+    "pages/coupon/coupon",
+    "pages/clerk/clerk",
+    "pages/video/video-list",
+    "pages/coupon-list/coupon-list",
+    "pages/topic-list/topic-list",
+    "pages/topic/topic",
+    "pages/miaosha/miaosha"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Mall",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#EFEFF4"
+  },
+  "tabBar": {
+    "color": "#666",
+    "selectedColor": "#ff4544",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "iconPath": "/images/nav-icon-index.png",
+        "selectedIconPath": "/images/nav-icon-index.active.png",
+        "pagePath": "pages/index/index",
+        "text": "商城"
+      },
+      {
+        "iconPath": "/images/nav-icon-cat.png",
+        "selectedIconPath": "/images/nav-icon-cat.active.png",
+        "pagePath": "pages/cat/cat",
+        "text": "分类"
+      },
+      {
+        "iconPath": "/images/nav-icon-cart.png",
+        "selectedIconPath": "/images/nav-icon-cart.active.png",
+        "pagePath": "pages/cart/cart",
+        "text": "购物车"
+      },
+      {
+        "iconPath": "/images/nav-icon-user.png",
+        "selectedIconPath": "/images/nav-icon-user.active.png",
+        "pagePath": "pages/user/user",
+        "text": "我"
+      }
+    ]
+  },
+  "debug": false
+}

@@ -1,0 +1,4 @@
+<!-- 所有图片组件 -->
+<template name="image">
+  <image class="{{style}}" src="{{src}}" mode="{{mode||'scaleToFill'}}" bindtap="{{bindtap||''}}" id="{{id||''}}"></image>
+</template>

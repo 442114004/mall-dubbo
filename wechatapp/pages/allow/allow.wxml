@@ -1,0 +1,15 @@
+<!--pages/personal/allow/allow.wxml-->
+<import src="../../tpl/image.wxml"/>
+
+<view class="container">
+  <view class="contentBox">
+    <view class="body">
+      <template is="image" data="{{style:'imgLogo',src:'/images/logo.png'}}"></template>
+      <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="imgBtn">
+        <template is="image" data="{{style:'imgBtn',src:'/images/allowWx.png'}}"></template>
+      </button>
+    </view>
+
+  </view>
+</view>
+

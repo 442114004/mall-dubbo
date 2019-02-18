@@ -1,0 +1,26 @@
+<view class="top-bar">
+    <scroll-view scroll-x="true">
+        <view class="flex-row start-time-list">
+            <view class="flex-grow-0 flex-y-center start-time-item {{item.status==1?'active':''}}"
+                  wx:for="{{start_time_list}}">
+                <view>
+                    <view class="start-time">{{item.time}}</view>
+                    <view class="start-status">{{item.status_text}}</view>
+                </view>
+                <view wx:if="{{item.status==1}}" class="start-time-item-icon"></view>
+            </view>
+        </view>
+    </scroll-view>
+    <view class="flex-row time-over-bar">
+        <view class="flex-grow-1 flex-y-center" style="color: #ff4544">限时限量 先到先得</view>
+        <view class="flex-grow-0 flex-y-center" style="color: #888">距离本场结束<text style="color: #666;margin-left: 10rpx">{{over_time}}</text></view>
+    </view>
+</view>
+<view class="goods-list">
+    <view class="item">商品</view>
+    <view class="item">商品</view>
+    <view class="item">商品</view>
+    <view class="item">商品</view>
+    <view class="item">商品</view>
+    <view class="item">商品</view>
+</view>
