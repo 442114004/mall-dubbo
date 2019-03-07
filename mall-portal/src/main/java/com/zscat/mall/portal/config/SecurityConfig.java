@@ -31,7 +31,7 @@ import org.springframework.web.filter.CorsFilter;
 
 /**
  * SpringSecurity的配置
- * Created by macro on 2018/4/26.
+ * Created by zscat on 2018/4/26.
  */
 @Configuration
 @EnableWebSecurity

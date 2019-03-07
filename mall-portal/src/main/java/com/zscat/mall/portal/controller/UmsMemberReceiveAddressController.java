@@ -1,9 +1,10 @@
 package com.zscat.mall.portal.controller;
 
-import com.macro.mall.annotation.IgnoreAuth;
-import com.zscat.cms.model.UmsMemberReceiveAddress;
-import com.macro.mall.portal.domain.CommonResult;
-import com.macro.mall.portal.service.UmsMemberReceiveAddressService;
+
+import com.zscat.common.annotation.IgnoreAuth;
+import com.zscat.common.result.CommonResult;
+import com.zscat.ums.model.UmsMemberReceiveAddress;
+import com.zscat.ums.service.UmsMemberReceiveAddressService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,12 @@ import java.util.List;
 
 /**
  * 会员收货地址管理Controller
- * Created by macro on 2018/8/28.
+ * Created by zscat on 2018/8/28.
  */
 @Controller
 @Api(tags = "UmsMemberReceiveAddressController", description = "会员收货地址管理")
 @RequestMapping("/api/address")
-public class UmsMemberReceiveAddressController {
+public class UmsMemberReceiveAddressController extends ApiBaseAction{
     @Autowired
     private UmsMemberReceiveAddressService memberReceiveAddressService;
 
@@ -27,7 +28,7 @@ public class UmsMemberReceiveAddressController {
     @RequestMapping(value = "/add")
     @ResponseBody
     public Object add(@RequestBody UmsMemberReceiveAddress address) {
-        int count = memberReceiveAddressService.add(address);
+        int count = memberReceiveAddressService.add(address,this.getCurrentMember());
         if (count > 0) {
             return new CommonResult().success(count);
         }
@@ -38,7 +39,7 @@ public class UmsMemberReceiveAddressController {
     @RequestMapping(value = "/delete")
     @ResponseBody
     public Object delete(@RequestParam(value = "id", required = false, defaultValue = "0") Long id) {
-        int count = memberReceiveAddressService.delete(id);
+        int count = memberReceiveAddressService.delete(id,this.getCurrentMember());
         if (count > 0) {
             return new CommonResult().success(count);
         }
@@ -51,9 +52,9 @@ public class UmsMemberReceiveAddressController {
     public Object update(UmsMemberReceiveAddress address) {
         int count = 0 ;
         if (address!=null && address.getId()!=null){
-             count = memberReceiveAddressService.update(address.getId(), address);
+             count = memberReceiveAddressService.update(address.getId(), address,this.getCurrentMember());
         }else {
-             count = memberReceiveAddressService.add(address);
+             count = memberReceiveAddressService.add(address,this.getCurrentMember());
         }
         if (count > 0) {
             return new CommonResult().success(count);
@@ -66,7 +67,7 @@ public class UmsMemberReceiveAddressController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Object list() {
-        List<UmsMemberReceiveAddress> addressList = memberReceiveAddressService.list();
+        List<UmsMemberReceiveAddress> addressList = memberReceiveAddressService.list(this.getCurrentMember());
         return new CommonResult().success(addressList);
     }
 
@@ -75,7 +76,7 @@ public class UmsMemberReceiveAddressController {
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     @ResponseBody
     public Object getItem(@RequestParam(value = "id", required = false, defaultValue = "0") Long id) {
-        UmsMemberReceiveAddress address = memberReceiveAddressService.getItem(id);
+        UmsMemberReceiveAddress address = memberReceiveAddressService.getItem(id,this.getCurrentMember());
         return new CommonResult().success(address);
     }
 
@@ -88,7 +89,7 @@ public class UmsMemberReceiveAddressController {
     @RequestMapping(value = "/address-set-default")
     @ResponseBody
     public Object setDefault(@RequestParam(value = "id", required = false, defaultValue = "0") Long id) {
-        int count = memberReceiveAddressService.setDefault(id);
+        int count = memberReceiveAddressService.setDefault(id,this.getCurrentMember());
         if (count > 0) {
             return new CommonResult().success(count);
         }

@@ -12,7 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Swagger2API文档的配置
- * Created by macro on 2018/4/26.
+ * Created by zscat on 2018/4/26.
  */
 @Configuration
 @EnableSwagger2
@@ -31,7 +31,7 @@ public class Swagger2Config {
         return new ApiInfoBuilder()
                 .title("mall前台系统")
                 .description("mall前台系统")
-                .contact("macro")
+                .contact("zscat")
                 .version("1.0")
                 .build();
     }

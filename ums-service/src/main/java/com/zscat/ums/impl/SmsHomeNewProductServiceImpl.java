@@ -13,9 +13,9 @@ import java.util.List;
 
 /**
  * 首页新品推荐管理Service实现类
- * Created by macro on 2018/11/6.
+ * Created by zscat on 2018/11/6.
  */
-@Service
+@Service("smsHomeNewProductService")
 public class SmsHomeNewProductServiceImpl implements SmsHomeNewProductService {
     @Resource
     private SmsHomeNewProductMapper homeNewProductMapper;

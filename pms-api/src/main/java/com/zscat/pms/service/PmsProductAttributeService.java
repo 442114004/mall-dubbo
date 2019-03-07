@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * 商品属性Service
- * Created by macro on 2018/4/26.
+ * Created by zscat on 2018/4/26.
  */
 public interface PmsProductAttributeService {
     /**

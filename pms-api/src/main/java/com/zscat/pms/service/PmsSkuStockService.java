@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * sku商品库存管理Service
- * Created by macro on 2018/4/27.
+ * Created by zscat on 2018/4/27.
  */
 public interface PmsSkuStockService {
     /**
@@ -20,4 +20,6 @@ public interface PmsSkuStockService {
     int update(Long pid, List<PmsSkuStock> skuStockList);
 
     PmsSkuStock selectById(Long id) ;
+
+    int updateByPrimaryKeySelective(PmsSkuStock skuStock);
 }

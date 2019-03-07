@@ -4,19 +4,21 @@ import com.zscat.oms.dto.CartProduct;
 import com.zscat.oms.dto.CartPromotionItem;
 import com.zscat.oms.model.OmsCartItem;
 import com.zscat.pms.model.PmsProduct;
+import com.zscat.ums.dto.SmsCouponHistoryDetail;
+import com.zscat.ums.model.UmsMember;
 
 import java.util.List;
 
 /**
  * 购物车管理Service
- * Created by macro on 2018/8/2.
+ * Created by zscat on 2018/8/2.
  */
 public interface OmsCartItemService {
     /**
      * 查询购物车中是否包含该商品，有增加数量，无添加到购物车
      */
 
-    OmsCartItem add(OmsCartItem cartItem,PmsProduct pmsProduct);
+    OmsCartItem add(OmsCartItem cartItem,PmsProduct pmsProduct,UmsMember currentMember);
 
     /**
      * 根据会员编号获取购物车列表
@@ -55,5 +57,10 @@ public interface OmsCartItemService {
      * 清空购物车
      */
     int clear(Long memberId);
+
+    /**
+     * 根据购物车信息获取可用优惠券
+     */
+    List<SmsCouponHistoryDetail> listCart(List<CartPromotionItem> cartItemList, Integer type,UmsMember currentMember);
 
 }

@@ -13,9 +13,9 @@ import java.util.List;
 
 /**
  * 优惠券领取记录管理Service实现类
- * Created by macro on 2018/11/6.
+ * Created by zscat on 2018/11/6.
  */
-@Service
+@Service("smsCouponHistoryService")
 public class SmsCouponHistoryServiceImpl implements SmsCouponHistoryService {
     @Resource
     private SmsCouponHistoryMapper historyMapper;
@@ -35,5 +35,20 @@ public class SmsCouponHistoryServiceImpl implements SmsCouponHistoryService {
             criteria.andOrderSnEqualTo(orderSn);
         }
         return historyMapper.selectByExample(example);
+    }
+
+    @Override
+    public List<SmsCouponHistory> selectByExample(SmsCouponHistoryExample example){
+        return historyMapper.selectByExample(example);
+    }
+
+    @Override
+    public SmsCouponHistory selectByPrimaryKey(Long id){
+        return historyMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(SmsCouponHistory record){
+        return historyMapper.updateByPrimaryKeySelective(record);
     }
 }

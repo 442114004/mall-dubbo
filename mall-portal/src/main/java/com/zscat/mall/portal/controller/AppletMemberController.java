@@ -37,7 +37,7 @@ import java.util.Map;
 
 /**
  * 会员登录注册管理Controller
- * Created by macro on 2018/8/3.
+ * Created by zscat on 2018/8/3.
  */
 @RestController
 @Api(tags = "AppletMemberController", description = "会员登录注册管理")
@@ -118,7 +118,7 @@ public class AppletMemberController extends ApiBaseAction {
                 redisService.expire(RedisKey.appletBannerKey+"2",24*60*60);
             }
             List<SmsCoupon> couponList = new ArrayList<>();
-            UmsMember umsMember = memberService.getCurrentMember();
+            UmsMember umsMember = this.getCurrentMember();
             if (umsMember != null && umsMember.getId() != null) {
                  couponList = umsMemberCouponService.selectNotRecive(umsMember.getId());
             }
@@ -151,7 +151,8 @@ public class AppletMemberController extends ApiBaseAction {
                 for (PmsProductAttributeCategory gt : productAttributeCategoryList) {
                     PmsProductQueryParam productQueryParam = new PmsProductQueryParam();
                     productQueryParam.setProductAttributeCategoryId(gt.getId());
-                    gt.setGoodsList(pmsProductService.list(productQueryParam, 4, 1));
+                    productQueryParam.setPageNum(1);productQueryParam.setPageSize(4);
+                    gt.setGoodsList(pmsProductService.list(productQueryParam));
                 }
                 redisService.set(RedisKey.appletCategoryKey,JsonUtil.objectToJson(productAttributeCategoryList));
                 redisService.expire(RedisKey.appletCategoryKey,24*60*60);
@@ -176,7 +177,7 @@ public class AppletMemberController extends ApiBaseAction {
     @GetMapping("/user")
     public Object user() {
 
-        UmsMember umsMember = memberService.getCurrentMember();
+        UmsMember umsMember = this.getCurrentMember();
         if (umsMember != null && umsMember.getId() != null) {
             OmsOrderQueryParam param = new OmsOrderQueryParam();
             param.setMemberId(umsMember.getId());

@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * 用户商品浏览历史记录
- * Created by macro on 2018/8/3.
+ * Created by zscat on 2018/8/3.
  */
 @Document
 public class MemberReadHistory {

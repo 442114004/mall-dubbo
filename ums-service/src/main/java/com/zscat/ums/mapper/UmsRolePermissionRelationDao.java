@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * 后台用户角色管理自定义Dao
- * Created by macro on 2018/9/30.
+ * Created by zscat on 2018/9/30.
  */
 public interface UmsRolePermissionRelationDao {
     /**

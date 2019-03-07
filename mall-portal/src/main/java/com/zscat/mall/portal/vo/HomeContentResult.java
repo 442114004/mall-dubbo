@@ -1,6 +1,7 @@
 package com.zscat.mall.portal.vo;
 
 
+import com.zscat.cms.model.CmsSubject;
 import com.zscat.pms.model.PmsBrand;
 import com.zscat.pms.model.PmsProduct;
 import com.zscat.pms.model.PmsProductAttributeCategory;
@@ -12,7 +13,7 @@ import java.util.List;
 
 /**
  * 首页内容返回信息封装
- * Created by macro on 2019/1/28.
+ * Created by zscat on 2019/1/28.
  */
 @Getter
 @Setter

@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * 优惠券领取历史详情封装
- * Created by macro on 2018/8/29.
+ * Created by zscat on 2018/8/29.
  */
 public class SmsCouponHistoryDetail extends SmsCouponHistory {
     //相关优惠券信息

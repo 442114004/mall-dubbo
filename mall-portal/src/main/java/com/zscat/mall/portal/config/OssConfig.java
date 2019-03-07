@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Created by macro on 2018/5/17.
+ * Created by zscat on 2018/5/17.
  */
 @Configuration
 public class OssConfig {

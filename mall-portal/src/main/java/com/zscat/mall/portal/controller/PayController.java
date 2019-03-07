@@ -1,18 +1,21 @@
 package com.zscat.mall.portal.controller;
 
 
-import com.macro.mall.dto.OmsOrderDetail;
-import com.macro.mall.dto.OmsOrderQueryParam;
-import com.zscat.cms.model.OmsOrder;
-import com.zscat.cms.model.OmsOrderItem;
-import com.zscat.cms.model.UmsMember;
-import com.macro.mall.portal.config.WxAppletProperties;
-import com.macro.mall.portal.service.OmsOrderService;
-import com.macro.mall.portal.service.OmsPortalOrderService;
-import com.macro.mall.portal.service.UmsMemberService;
-import com.macro.mall.portal.util.*;
-import com.macro.mall.portal.util.applet.WechatRefundApiResult;
-import com.macro.mall.portal.util.applet.WechatUtil;
+import com.zscat.mall.portal.config.WxAppletProperties;
+import com.zscat.mall.portal.service.OmsPortalOrderService;
+import com.zscat.mall.portal.util.CharUtil;
+import com.zscat.mall.portal.util.DateUtils;
+import com.zscat.mall.portal.util.MapUtils;
+import com.zscat.mall.portal.util.XmlUtil;
+import com.zscat.mall.portal.util.applet.WechatRefundApiResult;
+import com.zscat.mall.portal.util.applet.WechatUtil;
+import com.zscat.oms.dto.OmsOrderDetail;
+import com.zscat.oms.dto.OmsOrderQueryParam;
+import com.zscat.oms.model.OmsOrder;
+import com.zscat.oms.model.OmsOrderItem;
+import com.zscat.oms.service.OmsOrderService;
+import com.zscat.ums.model.UmsMember;
+import com.zscat.ums.service.UmsMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -64,7 +67,7 @@ public class PayController extends ApiBaseAction {
     @ApiOperation(value = "获取支付的请求参数")
     @GetMapping("prepay")
     public Object payPrepay( @RequestParam(value = "id", required = false, defaultValue = "0") Long id) {
-        UmsMember user = umsMemberService.getCurrentMember();
+        UmsMember user = this.getCurrentMember();
         //
         OmsOrderDetail orderInfo = orderService.detail(id);
 
@@ -165,7 +168,7 @@ public class PayController extends ApiBaseAction {
     @ApiOperation(value = "查询订单状态")
     @GetMapping("query")
     public Object orderQuery( @RequestParam(value = "id", required = false, defaultValue = "0") Long id) {
-        UmsMember user = umsMemberService.getCurrentMember();
+        UmsMember user = this.getCurrentMember();
         //
         OmsOrderDetail orderDetail = orderService.detail(id);
         if (id == null) {

@@ -1,61 +1,37 @@
 package com.zscat.ums.service;
 
-import com.zscat.common.result.CommonResult;
 import com.zscat.ums.model.UmsMember;
+import com.zscat.ums.model.UmsMemberExample;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * 会员管理Service
- * Created by macro on 2018/8/3.
+ * Created by zscat on 2018/8/3.
  */
 public interface UmsMemberService {
-    /**
-     * 根据用户名获取会员
-     */
-    UmsMember getByUsername(String username);
 
-    /**
-     * 根据会员编号获取会员
-     */
-    UmsMember getById(Long id);
+    int countByExample(UmsMemberExample example);
 
-    /**
-     * 用户注册
-     */
+    int deleteByExample(UmsMemberExample example);
 
-    CommonResult register(String username, String password, String telephone, String authCode);
-
-    /**
-     * 生成验证码
-     */
-    CommonResult generateAuthCode(String telephone);
-
-    /**
-     * 修改密码
-     */
-
-    CommonResult updatePassword(String telephone, String password, String authCode);
-
-    /**
-     * 获取当前登录会员
-     */
-    UmsMember getCurrentMember();
-
-    /**
-     * 根据会员id修改会员积分
-     */
-    void updateIntegration(Long id, Integer integration);
-
-    public UmsMember queryByOpenId(String openId);
-
-
-
-    Map<String, Object> login(String username, String password);
-
-    String refreshToken(String token);
-
-    Object register(UmsMember umsMember);
+    int deleteByPrimaryKey(Long id);
 
     int insert(UmsMember record);
+
+    int insertSelective(UmsMember record);
+
+    List<UmsMember> selectByExample(UmsMemberExample example);
+
+    UmsMember selectByPrimaryKey(Long id);
+
+    int updateByExampleSelective( UmsMember record,UmsMemberExample example);
+
+    int updateByExample(UmsMember record,  UmsMemberExample example);
+
+    int updateByPrimaryKeySelective(UmsMember record);
+
+    int updateByPrimaryKey(UmsMember record);
+
+    UmsMember queryByOpenId(String openId);
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * 确认单信息封装
- * Created by macro on 2018/8/30.
+ * Created by zscat on 2018/8/30.
  */
 public class ConfirmOrderResult {
 

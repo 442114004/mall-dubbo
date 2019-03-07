@@ -10,6 +10,9 @@ import com.zscat.oms.model.OmsCartItemExample;
 import com.zscat.oms.service.OmsCartItemService;
 import com.zscat.oms.service.OmsPromotionService;
 import com.zscat.pms.model.PmsProduct;
+import com.zscat.ums.dto.SmsCouponHistoryDetail;
+import com.zscat.ums.model.SmsCouponProductCategoryRelation;
+import com.zscat.ums.model.SmsCouponProductRelation;
 import com.zscat.ums.model.UmsMember;
 import com.zscat.ums.service.UmsMemberService;
 import org.springframework.stereotype.Service;
@@ -17,15 +20,16 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
  * 购物车管理Service实现类
- * Created by macro on 2018/8/2.
+ * Created by zscat on 2018/8/2.
  */
-@Service
+@Service("redisService")
 public class OmsCartItemServiceImpl implements OmsCartItemService {
     @Resource
     private OmsCartItemMapper cartItemMapper;
@@ -37,8 +41,7 @@ public class OmsCartItemServiceImpl implements OmsCartItemService {
     private UmsMemberService memberService;
 
     @Override
-    public OmsCartItem add(OmsCartItem cartItem,PmsProduct pmsProduct) {
-        UmsMember currentMember = memberService.getCurrentMember();
+    public OmsCartItem add(OmsCartItem cartItem,PmsProduct pmsProduct,UmsMember currentMember) {
         cartItem.setMemberId(currentMember.getId());
         cartItem.setMemberNickname(currentMember.getNickname());
         cartItem.setDeleteStatus(0);
@@ -147,7 +150,7 @@ public class OmsCartItemServiceImpl implements OmsCartItemService {
         updateCart.setDeleteStatus(1);
         cartItemMapper.updateByPrimaryKeySelective(updateCart);
         cartItem.setId(null);
-        add(cartItem,null);
+        add(cartItem,null,null);
         return 1;
     }
 
@@ -158,5 +161,93 @@ public class OmsCartItemServiceImpl implements OmsCartItemService {
         OmsCartItemExample example = new OmsCartItemExample();
         example.createCriteria().andMemberIdEqualTo(memberId);
         return cartItemMapper.updateByExampleSelective(record, example);
+    }
+    @Override
+    public List<SmsCouponHistoryDetail> listCart(List<CartPromotionItem> cartItemList, Integer type,UmsMember currentMember) {
+        Date now = new Date();
+        //获取该用户所有优惠券
+        List<SmsCouponHistoryDetail> allList = null;
+                //couponHistoryDao.getDetailList(currentMember.getId());
+        //根据优惠券使用类型来判断优惠券是否可用
+        List<SmsCouponHistoryDetail> enableList = new ArrayList<>();
+        List<SmsCouponHistoryDetail> disableList = new ArrayList<>();
+        for (SmsCouponHistoryDetail couponHistoryDetail : allList) {
+            Integer useType = couponHistoryDetail.getCoupon().getUseType();
+            BigDecimal minPoint = couponHistoryDetail.getCoupon().getMinPoint();
+            Date endTime = couponHistoryDetail.getCoupon().getEndTime();
+            if (useType.equals(0)) {
+                //0->全场通用
+                //判断是否满足优惠起点
+                //计算购物车商品的总价
+                BigDecimal totalAmount = calcTotalAmount(cartItemList);
+                if (now.before(endTime) && totalAmount.subtract(minPoint).intValue() >= 0) {
+                    enableList.add(couponHistoryDetail);
+                } else {
+                    disableList.add(couponHistoryDetail);
+                }
+            } else if (useType.equals(1)) {
+                //1->指定分类
+                //计算指定分类商品的总价
+                List<Long> productCategoryIds = new ArrayList<>();
+                for (SmsCouponProductCategoryRelation categoryRelation : couponHistoryDetail.getCategoryRelationList()) {
+                    productCategoryIds.add(categoryRelation.getProductCategoryId());
+                }
+                BigDecimal totalAmount = calcTotalAmountByproductCategoryId(cartItemList, productCategoryIds);
+                if (now.before(endTime) && totalAmount.intValue() > 0 && totalAmount.subtract(minPoint).intValue() >= 0) {
+                    enableList.add(couponHistoryDetail);
+                } else {
+                    disableList.add(couponHistoryDetail);
+                }
+            } else if (useType.equals(2)) {
+                //2->指定商品
+                //计算指定商品的总价
+                List<Long> productIds = new ArrayList<>();
+                for (SmsCouponProductRelation productRelation : couponHistoryDetail.getProductRelationList()) {
+                    productIds.add(productRelation.getProductId());
+                }
+                BigDecimal totalAmount = calcTotalAmountByProductId(cartItemList, productIds);
+                if (now.before(endTime) && totalAmount.intValue() > 0 && totalAmount.subtract(minPoint).intValue() >= 0) {
+                    enableList.add(couponHistoryDetail);
+                } else {
+                    disableList.add(couponHistoryDetail);
+                }
+            }
+        }
+        if (type.equals(1)) {
+            return enableList;
+        } else {
+            return disableList;
+        }
+    }
+
+    private BigDecimal calcTotalAmount(List<CartPromotionItem> cartItemList) {
+        BigDecimal total = new BigDecimal("0");
+        for (CartPromotionItem item : cartItemList) {
+            BigDecimal realPrice = item.getPrice().subtract(item.getReduceAmount());
+            total = total.add(realPrice.multiply(new BigDecimal(item.getQuantity())));
+        }
+        return total;
+    }
+
+    private BigDecimal calcTotalAmountByproductCategoryId(List<CartPromotionItem> cartItemList, List<Long> productCategoryIds) {
+        BigDecimal total = new BigDecimal("0");
+        for (CartPromotionItem item : cartItemList) {
+            if (productCategoryIds.contains(item.getProductCategoryId())) {
+                BigDecimal realPrice = item.getPrice().subtract(item.getReduceAmount());
+                total = total.add(realPrice.multiply(new BigDecimal(item.getQuantity())));
+            }
+        }
+        return total;
+    }
+
+    private BigDecimal calcTotalAmountByProductId(List<CartPromotionItem> cartItemList, List<Long> productIds) {
+        BigDecimal total = new BigDecimal("0");
+        for (CartPromotionItem item : cartItemList) {
+            if (productIds.contains(item.getProductId())) {
+                BigDecimal realPrice = item.getPrice().subtract(item.getReduceAmount());
+                total = total.add(realPrice.multiply(new BigDecimal(item.getQuantity())));
+            }
+        }
+        return total;
     }
 }

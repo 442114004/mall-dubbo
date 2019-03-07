@@ -1,40 +1,37 @@
 package com.zscat.mall.portal.controller;
 
-import com.macro.mall.dto.OmsOrderDetail;
-import com.macro.mall.dto.OmsOrderQueryParam;
-import com.zscat.cms.mapper.OmsOrderItemMapper;
-import com.zscat.cms.model.OmsOrder;
-import com.zscat.cms.model.OmsOrderItem;
-import com.zscat.cms.model.OmsOrderItemExample;
-import com.macro.mall.portal.constant.RedisKey;
-import com.macro.mall.portal.domain.CommonResult;
-import com.macro.mall.portal.domain.ConfirmOrderResult;
-import com.macro.mall.portal.domain.OrderParam;
-import com.macro.mall.portal.service.OmsOrderService;
-import com.macro.mall.portal.service.OmsPortalOrderService;
-import com.macro.mall.portal.service.RedisService;
-import com.macro.mall.portal.service.UmsMemberService;
-import com.macro.mall.portal.util.JsonUtil;
-import com.macro.mall.portal.vo.TbThanks;
+
+import com.zscat.common.result.CommonResult;
+import com.zscat.mall.portal.constant.RedisKey;
+import com.zscat.mall.portal.service.OmsPortalOrderService;
+import com.zscat.mall.portal.util.JsonUtil;
+import com.zscat.oms.dto.*;
+import com.zscat.oms.model.OmsOrder;
+import com.zscat.oms.model.OmsOrderItem;
+import com.zscat.oms.model.OmsOrderItemExample;
+import com.zscat.oms.service.OmsOrderItemService;
+import com.zscat.oms.service.OmsOrderService;
+import com.zscat.ums.service.RedisService;
+import com.zscat.ums.service.UmsMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
 /**
  * 订单管理Controller
- * Created by macro on 2018/8/30.
+ * Created by zscat on 2018/8/30.
  */
 @Controller
 @Api(tags = "OmsPortalOrderController", description = "订单管理")
 @RequestMapping("/api/order")
-public class OmsPortalOrderController {
-    @Autowired
-    private OmsPortalOrderService portalOrderService;
+public class OmsPortalOrderController extends ApiBaseAction{
+
     @Autowired
     private OmsOrderService orderService;
     @Autowired
@@ -42,22 +39,25 @@ public class OmsPortalOrderController {
     @Autowired
     private RedisService redisService;
     @Autowired
-    private OmsOrderItemMapper orderItemMapper;
+    private OmsOrderItemService orderItemService;
+
+    @Resource
+    private  OmsPortalOrderService portalOrderService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Object list(OmsOrderQueryParam queryParam,
                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                        @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        queryParam.setMemberId(umsMemberService.getCurrentMember().getId());
+        queryParam.setMemberId(this.getCurrentMember().getId());
         List<OmsOrder> orderList = orderService.list(queryParam, pageSize, pageNum);
         for (OmsOrder order : orderList){
             OmsOrderItemExample orderItemExample = new OmsOrderItemExample();
             orderItemExample.createCriteria().andOrderIdEqualTo(order.getId());
-            List<OmsOrderItem> orderItemList = orderItemMapper.selectByExample(orderItemExample);
+            List<OmsOrderItem> orderItemList = orderItemService.selectByExample(orderItemExample);
             order.setOrderItemList(orderItemList);
         }
-        return new com.macro.mall.dto.CommonResult().pageSuccess(orderList);
+        return this.pageSuccess(orderList);
     }
 
     @ApiOperation("获取订单详情:订单信息、商品信息、操作记录")
@@ -74,7 +74,7 @@ public class OmsPortalOrderController {
             redisService.expire(RedisKey.PmsProductResult+id,10*60);
         }
 
-        return new com.macro.mall.dto.CommonResult().success(orderDetailResult);
+        return new CommonResult().success(orderDetailResult);
     }
 
     /**
@@ -86,7 +86,7 @@ public class OmsPortalOrderController {
     @RequestMapping(value = "/generateConfirmOrder", method = RequestMethod.POST)
     @ResponseBody
     public Object generateConfirmOrder() {
-        ConfirmOrderResult confirmOrderResult = portalOrderService.generateConfirmOrder();
+        ConfirmOrderResult confirmOrderResult = portalOrderService.generateConfirmOrder(this.getCurrentMember());
         return new CommonResult().success(confirmOrderResult);
     }
 
@@ -95,7 +95,7 @@ public class OmsPortalOrderController {
     @GetMapping("/submitPreview")
     public Object submitPreview(@RequestParam Map<String, Object> params){
         try {
-            ConfirmOrderResult result = portalOrderService.submitPreview(params);
+            ConfirmOrderResult result = portalOrderService.submitPreview(params,this.getCurrentMember());
             return new CommonResult().success(result);
         }catch (Exception e){
             e.printStackTrace();
@@ -111,7 +111,7 @@ public class OmsPortalOrderController {
     @RequestMapping(value = "/generateOrder")
     @ResponseBody
     public Object generateOrder(OrderParam orderParam) {
-        return portalOrderService.generateOrder(orderParam);
+        return portalOrderService.generateOrder(orderParam,this.getCurrentMember());
     }
 
 

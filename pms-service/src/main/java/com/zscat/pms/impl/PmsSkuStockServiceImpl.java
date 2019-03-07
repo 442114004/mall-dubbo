@@ -14,9 +14,9 @@ import java.util.List;
 
 /**
  * 商品sku库存管理Service实现类
- * Created by macro on 2018/4/27.
+ * Created by zscat on 2018/4/27.
  */
-@Service
+@Service("redisService")
 public class PmsSkuStockServiceImpl implements PmsSkuStockService {
     @Resource
     private PmsSkuStockMapper skuStockMapper;
@@ -41,5 +41,11 @@ public class PmsSkuStockServiceImpl implements PmsSkuStockService {
     @Override
     public  PmsSkuStock selectById(Long id){
         return skuStockMapper.selectByPrimaryKey(id);
+    }
+
+
+    @Override
+    public int updateByPrimaryKeySelective(PmsSkuStock skuStock){
+        return skuStockMapper.updateByPrimaryKeySelective(skuStock);
     }
 }

@@ -5,7 +5,7 @@ import com.zscat.oms.dto.OmsOrderReturnApplyParam;
 
 /**
  * 订单退货管理Service
- * Created by macro on 2018/10/17.
+ * Created by zscat on 2018/10/17.
  */
 public interface OmsPortalOrderReturnApplyService {
     /**

@@ -10,9 +10,9 @@ import javax.annotation.Resource;
 
 /**
  * 订单设置管理Service实现类
- * Created by macro on 2018/10/16.
+ * Created by zscat on 2018/10/16.
  */
-@Service
+@Service("redisService")
 public class OmsOrderSettingServiceImpl implements OmsOrderSettingService {
     @Resource
     private OmsOrderSettingMapper orderSettingMapper;

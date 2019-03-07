@@ -1,21 +1,28 @@
 package com.zscat.mall.portal.controller;
 
-import com.macro.mall.annotation.IgnoreAuth;
-import com.macro.mall.dto.ConsultTypeCount;
-import com.macro.mall.dto.PmsProductCategoryWithChildrenItem;
-import com.macro.mall.dto.PmsProductQueryParam;
-import com.macro.mall.dto.PmsProductResult;
-import com.zscat.cms.model.PmsProductAttribute;
-import com.zscat.cms.model.PmsProductAttributeCategory;
-import com.zscat.cms.model.PmsProductConsult;
-import com.zscat.cms.model.UmsMember;
-import com.macro.mall.portal.constant.RedisKey;
-import com.macro.mall.portal.domain.CommonResult;
-import com.macro.mall.portal.domain.MemberProductCollection;
-import com.macro.mall.portal.repository.MemberProductCollectionRepository;
-import com.macro.mall.portal.service.*;
-import com.macro.mall.portal.util.JsonUtil;
-import com.macro.mall.portal.vo.R;
+
+import com.zscat.cms.service.CmsSubjectService;
+import com.zscat.common.annotation.IgnoreAuth;
+import com.zscat.common.result.CommonResult;
+import com.zscat.mall.portal.constant.RedisKey;
+import com.zscat.mall.portal.entity.MemberProductCollection;
+import com.zscat.mall.portal.repository.MemberProductCollectionRepository;
+import com.zscat.mall.portal.service.HomeService;
+import com.zscat.mall.portal.service.MemberCollectionService;
+import com.zscat.mall.portal.util.JsonUtil;
+import com.zscat.mall.portal.vo.R;
+import com.zscat.pms.dto.ConsultTypeCount;
+import com.zscat.pms.dto.PmsProductCategoryWithChildrenItem;
+import com.zscat.pms.dto.PmsProductQueryParam;
+import com.zscat.pms.dto.PmsProductResult;
+import com.zscat.pms.model.PmsProductAttribute;
+import com.zscat.pms.model.PmsProductAttributeCategory;
+import com.zscat.pms.model.PmsProductConsult;
+import com.zscat.pms.service.*;
+import com.zscat.ums.model.UmsMember;
+import com.zscat.ums.service.RedisService;
+import com.zscat.ums.service.SmsHomeAdvertiseService;
+import com.zscat.ums.service.UmsMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +34,12 @@ import java.util.Map;
 
 /**
  * 首页内容管理Controller
- * Created by macro on 2019/1/28.
+ * Created by zscat on 2019/1/28.
  */
 @RestController
 @Api(tags = "GoodsController", description = "首页内容管理")
 @RequestMapping("/api/pms")
-public class PmsGoodsController {
+public class PmsGoodsController extends ApiBaseAction{
     @Autowired
     private HomeService homeService;
     @Autowired
@@ -64,14 +71,14 @@ public class PmsGoodsController {
     @ApiOperation(value = "查询商品列表")
     public R queryProductList(@RequestBody PmsProductQueryParam productQueryParam) {
         R r = new R();
-        r.put("data", pmsProductService.list(productQueryParam, productQueryParam.getPageSize(), productQueryParam.getPageNum()));
+        r.put("data", pmsProductService.list(productQueryParam));
         return r;
     }
     @IgnoreAuth
     @GetMapping(value = "/product/queryProductList1")
     public R queryProductList1(PmsProductQueryParam productQueryParam) {
         R r = new R();
-        r.put("data", pmsProductService.list(productQueryParam, productQueryParam.getPageSize(), productQueryParam.getPageNum()));
+        r.put("data", pmsProductService.list(productQueryParam));
         return r;
     }
     /**
@@ -87,7 +94,8 @@ public class PmsGoodsController {
         for (PmsProductAttributeCategory gt : productAttributeCategoryList) {
             PmsProductQueryParam productQueryParam = new PmsProductQueryParam();
             productQueryParam.setProductAttributeCategoryId(gt.getId());
-            gt.setGoodsList(pmsProductService.list(productQueryParam, 4, 1));
+            productQueryParam.setPageNum(1);productQueryParam.setPageSize(4);
+            gt.setGoodsList(pmsProductService.list(productQueryParam));
         }
         r.put("data", productAttributeCategoryList);
         return r;
@@ -111,7 +119,7 @@ public class PmsGoodsController {
     @ApiOperation( value = "查询商品详情信息")
     public Object queryProductDetail(@RequestParam(value = "id", required = false, defaultValue = "0") Long id) {
         PmsProductResult productResult = pmsProductService.getUpdateInfo(id);
-        UmsMember umsMember = memberService.getCurrentMember();
+        UmsMember umsMember = this.getCurrentMember();
         if (umsMember != null && umsMember.getId() != null) {
             MemberProductCollection findCollection = productCollectionRepository.findByMemberIdAndProductId(
                     umsMember.getId(), id);
@@ -121,7 +129,7 @@ public class PmsGoodsController {
                 productResult.setIs_favorite(2);
             }
         }
-        return new com.macro.mall.dto.CommonResult().success(productResult);
+        return new CommonResult().success(productResult);
     }
     @IgnoreAuth
     @GetMapping(value = "/attr/list")
@@ -130,7 +138,7 @@ public class PmsGoodsController {
                           @RequestParam(value = "pageSize", required = false,defaultValue = "5") Integer pageSize,
                           @RequestParam(value = "pageNum", required = false,defaultValue = "1") Integer pageNum) {
         List<PmsProductAttribute> productAttributeList = productAttributeService.getList(cid, type, pageSize, pageNum);
-        return new com.macro.mall.dto.CommonResult().pageSuccess(productAttributeList);
+        return this.pageSuccess(productAttributeList);
     }
 
     @IgnoreAuth

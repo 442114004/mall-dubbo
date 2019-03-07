@@ -1,14 +1,15 @@
 package com.zscat.mall.portal.controller;
 
-import com.zscat.cms.model.SmsCoupon;
-import com.zscat.cms.model.SmsCouponHistory;
-import com.zscat.cms.model.UmsMember;
-import com.macro.mall.portal.domain.CartPromotionItem;
-import com.macro.mall.portal.domain.CommonResult;
-import com.macro.mall.portal.domain.SmsCouponHistoryDetail;
-import com.macro.mall.portal.service.OmsCartItemService;
-import com.macro.mall.portal.service.UmsMemberCouponService;
-import com.macro.mall.portal.service.UmsMemberService;
+import com.zscat.common.result.CommonResult;
+import com.zscat.oms.dto.CartPromotionItem;
+import com.zscat.oms.service.OmsCartItemService;
+import com.zscat.oms.service.OmsOrderItemService;
+import com.zscat.ums.dto.SmsCouponHistoryDetail;
+import com.zscat.ums.model.SmsCoupon;
+import com.zscat.ums.model.SmsCouponHistory;
+import com.zscat.ums.model.UmsMember;
+import com.zscat.ums.service.UmsMemberCouponService;
+import com.zscat.ums.service.UmsMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -16,17 +17,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * 用户优惠券管理Controller
- * Created by macro on 2018/8/29.
+ * Created by zscat on 2018/8/29.
  */
 @Controller
 @Api(tags = "UmsMemberCouponController", description = "用户优惠券管理")
 @RequestMapping("/api/member/coupon")
-public class UmsMemberCouponController {
+public class UmsMemberCouponController extends  ApiBaseAction{
     @Autowired
     private UmsMemberCouponService memberCouponService;
     @Autowired
@@ -37,11 +40,13 @@ public class UmsMemberCouponController {
     @Autowired
     UmsMemberCouponService umsMemberCouponService;
 
+    @Resource
+    private OmsCartItemService omsCartItemService;
     @ApiOperation("领取指定优惠券")
     @RequestMapping(value = "/add")
     @ResponseBody
     public Object add( Long couponId) {
-        return memberCouponService.add(couponId);
+        return memberCouponService.add(couponId,this.getCurrentMember());
     }
 
     @ApiOperation("获取用户优惠券列表")
@@ -50,7 +55,7 @@ public class UmsMemberCouponController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Object list(@RequestParam(value = "useStatus", required = false) Integer useStatus) {
-        List<SmsCouponHistory> couponHistoryList = memberCouponService.list(useStatus);
+        List<SmsCouponHistory> couponHistoryList = memberCouponService.list(useStatus,this.getCurrentMember());
         return new CommonResult().success(couponHistoryList);
     }
 
@@ -62,7 +67,7 @@ public class UmsMemberCouponController {
     @ResponseBody
     public Object alllist() {
         List<SmsCoupon> couponList = new ArrayList<>();
-        UmsMember umsMember = memberService.getCurrentMember();
+        UmsMember umsMember = this.getCurrentMember();
         if (umsMember != null && umsMember.getId() != null) {
             couponList = umsMemberCouponService.selectNotRecive(umsMember.getId());
         }
@@ -76,8 +81,8 @@ public class UmsMemberCouponController {
     @RequestMapping(value = "/list/cart/{type}", method = RequestMethod.GET)
     @ResponseBody
     public Object listCart(@PathVariable Integer type) {
-        List<CartPromotionItem> cartPromotionItemList = cartItemService.listPromotion(memberService.getCurrentMember().getId(),null);
-        List<SmsCouponHistoryDetail> couponHistoryList = memberCouponService.listCart(cartPromotionItemList, type);
+        List<CartPromotionItem> cartPromotionItemList = cartItemService.listPromotion(this.getCurrentMember().getId(),null);
+        List<SmsCouponHistoryDetail> couponHistoryList = omsCartItemService.listCart(cartPromotionItemList, type,this.getCurrentMember());
         return new CommonResult().success(couponHistoryList);
     }
 }

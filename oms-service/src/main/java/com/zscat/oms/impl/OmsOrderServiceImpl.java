@@ -2,14 +2,13 @@ package com.zscat.oms.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.zscat.oms.dto.*;
-import com.zscat.oms.mapper.OmsOrderDao;
-import com.zscat.oms.mapper.OmsOrderMapper;
-import com.zscat.oms.mapper.OmsOrderOperateHistoryDao;
-import com.zscat.oms.mapper.OmsOrderOperateHistoryMapper;
+import com.zscat.oms.mapper.*;
 import com.zscat.oms.model.OmsOrder;
 import com.zscat.oms.model.OmsOrderExample;
+import com.zscat.oms.model.OmsOrderItem;
 import com.zscat.oms.model.OmsOrderOperateHistory;
 import com.zscat.oms.service.OmsOrderService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,9 +18,9 @@ import java.util.stream.Collectors;
 
 /**
  * 订单管理Service实现类
- * Created by macro on 2018/10/11.
+ * Created by zscat on 2018/10/11.
  */
-@Service
+@Service("redisService")
 public class OmsOrderServiceImpl implements OmsOrderService {
     @Resource
     private OmsOrderMapper orderMapper;
@@ -32,6 +31,8 @@ public class OmsOrderServiceImpl implements OmsOrderService {
     @Resource
     private OmsOrderOperateHistoryMapper orderOperateHistoryMapper;
 
+    @Resource
+    private PortalOrderDao portalOrderDao;
     @Override
     public List<OmsOrder> list(OmsOrderQueryParam queryParam, Integer pageSize, Integer pageNum) {
         PageHelper.startPage(pageNum, pageSize);
@@ -156,6 +157,55 @@ public class OmsOrderServiceImpl implements OmsOrderService {
         return orderMapper.updateByPrimaryKeySelective(omsOrder);
     }
 
+    @Override
+    public List<OmsOrder> selectByExample(OmsOrderExample example){
+        return orderMapper.selectByExample(example);
+    }
+
+    @Override
+    public OmsOrder selectByPrimaryKey(Long id){
+        return orderMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(OmsOrder record) {
+        return orderMapper.updateByPrimaryKeySelective(record);
+    }
 
 
+    @Override
+    public int updateSkuStock(@Param("itemList") List<OmsOrderItem> orderItemList){
+        return portalOrderDao.updateSkuStock(orderItemList);
+    }
+
+    /**
+     * 获取超时订单
+     *
+     * @param minute 超时时间（分）
+     */
+    @Override
+    public List<OmsOrderDetail> getTimeOutOrders(Integer minute){
+        return portalOrderDao.getTimeOutOrders(minute);
+    }
+
+    /**
+     * 批量修改订单状态
+     */
+    @Override
+    public int updateOrderStatus(List<Long> ids, Integer status){
+        return portalOrderDao.updateOrderStatus(ids,status);
+    }
+
+    /**
+     * 解除取消订单的库存锁定
+     */
+    @Override
+    public int releaseSkuStockLock( List<OmsOrderItem> orderItemList){
+        return portalOrderDao.releaseSkuStockLock(orderItemList);
+    }
+
+    @Override
+    public  int insert(OmsOrder order){
+        return orderMapper.insert(order);
+    }
 }

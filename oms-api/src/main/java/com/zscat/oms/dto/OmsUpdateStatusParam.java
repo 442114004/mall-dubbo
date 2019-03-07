@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 /**
  * 确认收货提交参数
- * Created by macro on 2018/10/18.
+ * Created by zscat on 2018/10/18.
  */
 @Getter
 @Setter

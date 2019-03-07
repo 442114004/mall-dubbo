@@ -11,9 +11,9 @@ import java.util.List;
 
 /**
  * 会员等级管理Service实现类
- * Created by macro on 2018/4/26.
+ * Created by zscat on 2018/4/26.
  */
-@Service
+@Service("umsMemberLevelService")
 public class UmsMemberLevelServiceImpl implements UmsMemberLevelService {
     @Resource
     private UmsMemberLevelMapper memberLevelMapper;

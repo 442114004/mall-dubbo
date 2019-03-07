@@ -10,9 +10,9 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * redis操作Service的实现类
- * Created by macro on 2018/8/7.
+ * Created by zscat on 2018/8/7.
  */
-@Service
+@Service("redisService")
 public class RedisServiceImpl implements RedisService {
     @Resource
     private StringRedisTemplate stringRedisTemplate;

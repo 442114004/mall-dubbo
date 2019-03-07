@@ -17,10 +17,10 @@ import java.math.RoundingMode;
 import java.util.*;
 
 /**
- * Created by macro on 2018/8/27.
+ * Created by zscat on 2018/8/27.
  * 促销管理Service实现类
  */
-@Service
+@Service("redisService")
 public class OmsPromotionServiceImpl implements OmsPromotionService {
     @Resource
     private PortalProductDao portalProductDao;

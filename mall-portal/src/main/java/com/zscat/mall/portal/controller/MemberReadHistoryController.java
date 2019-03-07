@@ -1,9 +1,10 @@
 package com.zscat.mall.portal.controller;
 
-import com.macro.mall.annotation.IgnoreAuth;
-import com.macro.mall.portal.domain.CommonResult;
-import com.macro.mall.portal.domain.MemberReadHistory;
-import com.macro.mall.portal.service.MemberReadHistoryService;
+
+import com.zscat.common.annotation.IgnoreAuth;
+import com.zscat.common.result.CommonResult;
+import com.zscat.mall.portal.entity.MemberReadHistory;
+import com.zscat.mall.portal.service.MemberReadHistoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.List;
 
 /**
  * 会员商品浏览记录管理Controller
- * Created by macro on 2018/8/3.
+ * Created by zscat on 2018/8/3.
  */
 @Controller
 @Api(tags = "MemberReadHistoryController", description = "会员商品浏览记录管理")

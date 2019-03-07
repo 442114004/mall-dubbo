@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by macro on 2018/8/6.
+ * Created by zscat on 2018/8/6.
  */
 public class GoAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Override

@@ -1,8 +1,9 @@
 package com.zscat.mall.portal.controller;
 
-import com.macro.mall.portal.domain.CommonResult;
-import com.macro.mall.portal.domain.OmsOrderReturnApplyParam;
-import com.macro.mall.portal.service.OmsPortalOrderReturnApplyService;
+
+import com.zscat.common.result.CommonResult;
+import com.zscat.oms.dto.OmsOrderReturnApplyParam;
+import com.zscat.oms.service.OmsPortalOrderReturnApplyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 申请退货管理Controller
- * Created by macro on 2018/10/17.
+ * Created by zscat on 2018/10/17.
  */
 @Controller
 @Api(tags = "OmsPortalOrderReturnApplyController", description = "申请退货管理")

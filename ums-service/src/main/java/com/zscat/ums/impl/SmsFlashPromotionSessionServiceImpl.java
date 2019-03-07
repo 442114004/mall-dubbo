@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
-@Service
+@Service("smsFlashPromotionSessionService")
 public class SmsFlashPromotionSessionServiceImpl implements SmsFlashPromotionSessionService{
     @Resource
     private SmsFlashPromotionSessionMapper flashPromotionSessionMapper;

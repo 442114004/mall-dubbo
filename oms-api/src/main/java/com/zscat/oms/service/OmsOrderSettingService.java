@@ -4,7 +4,7 @@ import com.zscat.oms.model.OmsOrderSetting;
 
 /**
  * 订单设置Service
- * Created by macro on 2018/10/16.
+ * Created by zscat on 2018/10/16.
  */
 public interface OmsOrderSettingService {
     /**

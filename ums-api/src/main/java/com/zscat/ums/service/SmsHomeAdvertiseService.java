@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * 首页广告管理Service
- * Created by macro on 2018/11/7.
+ * Created by zscat on 2018/11/7.
  */
 public interface SmsHomeAdvertiseService {
     /**

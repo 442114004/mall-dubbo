@@ -2,7 +2,7 @@ package com.zscat.pms.dto;
 
 /**
  * 品牌传递参数
- * Created by macro on 2018/4/26.
+ * Created by zscat on 2018/4/26.
  */
 public class PmsBrandParam {
   //  @ApiModelProperty(value = "品牌名称", required = true)

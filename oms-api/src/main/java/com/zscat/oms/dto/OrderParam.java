@@ -1,9 +1,12 @@
 package com.zscat.oms.dto;
 
+import lombok.Data;
+
 /**
  * 生成订单时传入的参数
- * Created by macro on 2018/8/30.
+ * Created by zscat on 2018/8/30.
  */
+@Data
 public class OrderParam {
     //收货地址id
     private Long memberReceiveAddressId;
@@ -19,76 +22,8 @@ public class OrderParam {
     private String cartId;
     private String cartIds;
     private String type; // 1 商品详情 2 勾选购物车 3全部购物车的商品
+    String page;
+    String formId;
+    String platform;
 
-    public String getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(String cartId) {
-        this.cartId = cartId;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getCartIds() {
-        return cartIds;
-    }
-
-    public void setCartIds(String cartIds) {
-        this.cartIds = cartIds;
-    }
-
-    public Integer getOffline() {
-        return offline;
-    }
-
-    public void setOffline(Integer offline) {
-        this.offline = offline;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Long getMemberReceiveAddressId() {
-        return memberReceiveAddressId;
-    }
-
-    public void setMemberReceiveAddressId(Long memberReceiveAddressId) {
-        this.memberReceiveAddressId = memberReceiveAddressId;
-    }
-
-    public Long getCouponId() {
-        return couponId;
-    }
-
-    public void setCouponId(Long couponId) {
-        this.couponId = couponId;
-    }
-
-    public Integer getPayType() {
-        return payType;
-    }
-
-    public void setPayType(Integer payType) {
-        this.payType = payType;
-    }
-
-    public Integer getUseIntegration() {
-        return useIntegration;
-    }
-
-    public void setUseIntegration(Integer useIntegration) {
-        this.useIntegration = useIntegration;
-    }
 }

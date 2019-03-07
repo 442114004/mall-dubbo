@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * 会员关注的品牌
- * Created by macro on 2018/8/2.
+ * Created by zscat on 2018/8/2.
  */
 @Document
 public class MemberBrandAttention {

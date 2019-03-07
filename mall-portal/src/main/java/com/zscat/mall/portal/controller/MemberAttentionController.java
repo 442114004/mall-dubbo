@@ -1,8 +1,9 @@
 package com.zscat.mall.portal.controller;
 
-import com.macro.mall.portal.domain.CommonResult;
-import com.macro.mall.portal.domain.MemberBrandAttention;
-import com.macro.mall.portal.service.MemberAttentionService;
+
+import com.zscat.common.result.CommonResult;
+import com.zscat.mall.portal.entity.MemberBrandAttention;
+import com.zscat.mall.portal.service.MemberAttentionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import java.util.List;
 
 /**
  * 会员关注品牌管理Controller
- * Created by macro on 2018/8/2.
+ * Created by zscat on 2018/8/2.
  */
 @Controller
 @Api(tags = "MemberAttentionController", description = "会员关注品牌管理")

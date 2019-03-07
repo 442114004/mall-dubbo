@@ -19,9 +19,9 @@ import java.util.Random;
 
 /**
  * 会员优惠券管理Service实现类
- * Created by macro on 2018/8/29.
+ * Created by zscat on 2018/8/29.
  */
-@Service
+@Service("umsMemberCouponService")
 public class UmsMemberCouponServiceImpl implements UmsMemberCouponService {
     @Resource
     private UmsMemberService memberService;
@@ -43,8 +43,8 @@ public class UmsMemberCouponServiceImpl implements UmsMemberCouponService {
 
 
     @Override
-    public CommonResult add(Long couponId) {
-        UmsMember currentMember = memberService.getCurrentMember();
+    public CommonResult add(Long couponId,UmsMember currentMember ) {
+
         //获取优惠券信息，判断数量
         SmsCoupon coupon = couponMapper.selectByPrimaryKey(couponId);
         if (coupon == null) {
@@ -104,8 +104,8 @@ public class UmsMemberCouponServiceImpl implements UmsMemberCouponService {
     }
 
     @Override
-    public List<SmsCouponHistory> list(Integer useStatus) {
-        UmsMember currentMember = memberService.getCurrentMember();
+    public List<SmsCouponHistory> list(Integer useStatus,UmsMember currentMember) {
+
         SmsCouponHistoryExample couponHistoryExample = new SmsCouponHistoryExample();
         SmsCouponHistoryExample.Criteria criteria = couponHistoryExample.createCriteria();
         criteria.andMemberIdEqualTo(currentMember.getId());

@@ -13,9 +13,9 @@ import java.util.List;
 
 /**
  * 优惠券管理Service实现类
- * Created by macro on 2018/8/28.
+ * Created by zscat on 2018/8/28.
  */
-@Service
+@Service("smsCouponService")
 public class SmsCouponServiceImpl implements SmsCouponService {
     @Resource
     private SmsCouponMapper couponMapper;

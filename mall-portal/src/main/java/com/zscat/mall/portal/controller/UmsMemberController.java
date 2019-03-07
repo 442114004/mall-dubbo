@@ -1,9 +1,10 @@
 package com.zscat.mall.portal.controller;
 
-import com.macro.mall.annotation.IgnoreAuth;
-import com.macro.mall.dto.CommonResult;
-import com.zscat.cms.model.UmsMember;
-import com.macro.mall.portal.service.UmsMemberService;
+
+import com.zscat.common.annotation.IgnoreAuth;
+import com.zscat.common.result.CommonResult;
+import com.zscat.ums.model.UmsMember;
+import com.zscat.ums.service.UmsMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,12 @@ import java.util.Map;
 
 /**
  * 会员登录注册管理Controller
- * Created by macro on 2018/8/3.
+ * Created by zscat on 2018/8/3.
  */
 @Controller
 @Api(tags = "UmsMemberController", description = "会员登录注册管理")
 @RequestMapping("/api/member")
-public class UmsMemberController {
+public class UmsMemberController extends ApiBaseAction{
     @Autowired
     private UmsMemberService memberService;
     @Value("${jwt.tokenHeader}")
@@ -75,11 +76,11 @@ public class UmsMemberController {
     @GetMapping("/user")
     @ResponseBody
     public Object user() {
-        UmsMember umsMember = memberService.getCurrentMember();
+        UmsMember umsMember = this.getCurrentMember();
         if (umsMember != null && umsMember.getId() != null) {
-            return new com.macro.mall.portal.domain.CommonResult().success(umsMember);
+            return new CommonResult().success(umsMember);
         }
-        return new com.macro.mall.portal.domain.CommonResult().failed();
+        return new CommonResult().failed();
 
     }
 

@@ -2,7 +2,7 @@ package com.zscat.pms.dto;
 
 /**
  * 商品属性参数
- * Created by macro on 2018/4/26.
+ * Created by zscat on 2018/4/26.
  */
 public class PmsProductAttributeParam {
   //  @ApiModelProperty("属性分类ID")

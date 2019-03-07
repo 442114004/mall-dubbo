@@ -3,8 +3,10 @@ package com.zscat.oms.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class OmsOrder implements Serializable {
+    List<OmsOrderItem> orderItemList;
     /**
      * 订单id
      *
@@ -584,6 +586,14 @@ public class OmsOrder implements Serializable {
 
     public void setReceiverDetailAddress(String receiverDetailAddress) {
         this.receiverDetailAddress = receiverDetailAddress;
+    }
+
+    public List<OmsOrderItem> getOrderItemList() {
+        return orderItemList;
+    }
+
+    public void setOrderItemList(List<OmsOrderItem> orderItemList) {
+        this.orderItemList = orderItemList;
     }
 
     public String getNote() {

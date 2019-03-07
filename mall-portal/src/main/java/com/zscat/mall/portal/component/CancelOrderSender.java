@@ -1,6 +1,7 @@
 package com.zscat.mall.portal.component;
 
-import com.macro.mall.portal.domain.QueueEnum;
+
+import com.zscat.mall.portal.vo.QueueEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.AmqpException;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 取消订单消息的发出者
- * Created by macro on 2018/9/14.
+ * Created by zscat on 2018/9/14.
  */
 @Component
 public class CancelOrderSender {

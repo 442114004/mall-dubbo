@@ -2,7 +2,7 @@ package com.zscat.pms.dto;
 
 /**
  * 产品查询参数
- * Created by macro on 2018/4/27.
+ * Created by zscat on 2018/4/27.
  */
 public class PmsProductQueryParam {
 //    @ApiModelProperty("上架状态")
@@ -21,7 +21,7 @@ public class PmsProductQueryParam {
     private Integer pageSize = 10;
     private Integer pageNum = 1;
     private Long productAttributeCategoryId;
-    ;
+
 
     public Integer getPublishStatus() {
         return publishStatus;

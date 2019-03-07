@@ -1,10 +1,17 @@
 package com.zscat.mall.portal.controller;
 
 
+import com.github.pagehelper.PageInfo;
+import com.zscat.common.result.CommonResult;
+import com.zscat.mall.portal.vo.MemberDetails;
+import com.zscat.ums.model.UmsMember;
 import org.apache.log4j.Logger;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,6 +23,7 @@ import org.springframework.web.context.request.WebRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -38,7 +46,30 @@ public class ApiBaseAction {
     @Autowired
     protected HttpServletResponse response;
 
+    public UmsMember getCurrentMember() {
+        try {
+            SecurityContext ctx = SecurityContextHolder.getContext();
+            Authentication auth = ctx.getAuthentication();
+            MemberDetails memberDetails = (MemberDetails) auth.getPrincipal();
+            return memberDetails.getUmsMember();
+        }catch (Exception e){
+            return new UmsMember();
+        }
+    }
+    /**
+     * 返回分页成功数据
+     */
+    public CommonResult pageSuccess(List data) {
+        PageInfo pageInfo = new PageInfo(data);
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("pageSize", pageInfo.getPageSize());
+        result.put("totalPage", pageInfo.getPages());
+        result.put("total", pageInfo.getTotal());
+        result.put("pageNum", pageInfo.getPageNum());
+        result.put("list", pageInfo.getList());
 
+        return new CommonResult().success(result);
+    }
     /**
      * 参数绑定异常
      */

@@ -17,9 +17,9 @@ import java.util.List;
 
 /**
  * 订单退货管理Service
- * Created by macro on 2018/10/18.
+ * Created by zscat on 2018/10/18.
  */
-@Service
+@Service("redisService")
 public class OmsOrderReturnApplyServiceImpl implements OmsOrderReturnApplyService {
     @Resource
     private OmsOrderReturnApplyDao returnApplyDao;

@@ -22,9 +22,9 @@ import java.util.List;
 
 /**
  * 商品管理Service实现类
- * Created by macro on 2018/4/26.
+ * Created by zscat on 2018/4/26.
  */
-@Service
+@Service("redisService")
 public class PmsProductServiceImpl implements PmsProductService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PmsProductServiceImpl.class);
     @Resource
@@ -157,8 +157,8 @@ public class PmsProductServiceImpl implements PmsProductService {
     }
 
     @Override
-    public List<PmsProduct> list(PmsProductQueryParam productQueryParam, Integer pageSize, Integer pageNum) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<PmsProduct> list(PmsProductQueryParam productQueryParam) {
+        PageHelper.startPage(productQueryParam.getPageNum(), productQueryParam.getPageSize());
         PmsProductExample productExample = new PmsProductExample();
         PmsProductExample.Criteria criteria = productExample.createCriteria();
         criteria.andDeleteStatusEqualTo(0);
@@ -186,6 +186,10 @@ public class PmsProductServiceImpl implements PmsProductService {
         return productMapper.selectByExample(productExample);
     }
 
+    @Override
+    public PmsProduct selectByPrimaryKey(Long id){
+        return productMapper.selectByPrimaryKey(id);
+    }
     @Override
     public int updateVerifyStatus(List<Long> ids, Integer verifyStatus, String detail) {
         PmsProduct product = new PmsProduct();

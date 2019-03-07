@@ -13,9 +13,9 @@ import java.util.List;
 
 /**
  * 商品专题Service实现类
- * Created by macro on 2018/6/1.
+ * Created by zscat on 2018/6/1.
  */
-@Service
+@Service("redisService")
 public class CmsSubjectServiceImpl implements CmsSubjectService {
     @Autowired
     private CmsSubjectMapper subjectMapper;

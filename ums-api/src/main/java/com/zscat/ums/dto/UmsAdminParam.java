@@ -5,7 +5,7 @@ import lombok.Setter;
 
 /**
  * 用户登录参数
- * Created by macro on 2018/4/26.
+ * Created by zscat on 2018/4/26.
  */
 @Getter
 @Setter

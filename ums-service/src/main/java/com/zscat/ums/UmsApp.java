@@ -9,14 +9,14 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * @author: zemin.liu
+ * @author: zscat
  * @date: 2018/11/7 10:39
  * @description: app 入口
  */
 @SpringBootApplication
 @Log4j2
 @MapperScan(basePackages = "com.zscat.ums.mapper")
-@ImportResource(locations = {"/dubbo-provider.xml","/dubbo-consumer.xml"})
+@ImportResource(locations = {"/dubbo-provider.xml"})
 @EnableTransactionManagement
 public class UmsApp {
 

@@ -13,9 +13,9 @@ import java.util.List;
 
 /**
  * 订单原因管理Service实现类
- * Created by macro on 2018/10/17.
+ * Created by zscat on 2018/10/17.
  */
-@Service
+@Service("redisService")
 public class OmsOrderReturnReasonServiceImpl implements OmsOrderReturnReasonService {
     @Resource
     private OmsOrderReturnReasonMapper returnReasonMapper;

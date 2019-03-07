@@ -1,24 +1,28 @@
 package com.zscat.mall.portal.controller;
 
-import com.macro.mall.portal.domain.CommonResult;
-import com.macro.mall.portal.domain.MemberProductCollection;
-import com.macro.mall.portal.service.MemberCollectionService;
+import com.zscat.common.result.CommonResult;
+import com.zscat.mall.portal.entity.MemberProductCollection;
+import com.zscat.mall.portal.service.MemberCollectionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+
+
 /**
  * 会员收藏管理Controller
- * Created by macro on 2018/8/2.
+ * Created by zscat on 2018/8/2.
  */
 @Controller
 @Api(tags = "MemberCollectionController", description = "会员收藏管理")
 @RequestMapping("/api/collection")
-public class MemberCollectionController {
+public class MemberCollectionController extends ApiBaseAction{
     @Autowired
     private MemberCollectionService memberCollectionService;
 
@@ -26,7 +30,7 @@ public class MemberCollectionController {
     @ResponseBody
     @RequestMapping("favorite-add")
     public Object addProduct(MemberProductCollection productCollection) {
-        int count = memberCollectionService.addProduct(productCollection);
+        int count = memberCollectionService.addProduct(productCollection,this.getCurrentMember());
         if (count > 0) {
             return new CommonResult().success(count);
         } else {

@@ -12,9 +12,9 @@ import java.util.List;
 
 /**
  * 收货地址管理Service实现类
- * Created by macro on 2018/10/18.
+ * Created by zscat on 2018/10/18.
  */
-@Service
+@Service("redisService")
 public class OmsCompanyAddressServiceImpl implements OmsCompanyAddressService {
     @Resource
     private OmsCompanyAddressMapper companyAddressMapper;

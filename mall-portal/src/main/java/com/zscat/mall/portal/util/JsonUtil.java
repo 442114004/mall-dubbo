@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Jackson json序列化和反序列化工具类
- * Created by macro on 2018/4/26.
+ * Created by zscat on 2018/4/26.
  */
 public class JsonUtil {
 

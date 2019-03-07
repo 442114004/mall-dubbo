@@ -5,7 +5,7 @@ import lombok.Setter;
 
 /**
  * 订单发货参数
- * Created by macro on 2018/10/12.
+ * Created by zscat on 2018/10/12.
  */
 @Getter
 @Setter

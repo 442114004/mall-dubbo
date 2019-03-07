@@ -1,22 +1,27 @@
 package com.zscat.mall.portal.controller;
 
 
+import com.zscat.cms.model.CmsSubject;
+import com.zscat.cms.service.CmsSubjectService;
 import com.zscat.common.annotation.IgnoreAuth;
 import com.zscat.common.result.CommonResult;
 import com.zscat.mall.portal.constant.RedisKey;
 import com.zscat.mall.portal.entity.MemberProductCollection;
 import com.zscat.mall.portal.repository.MemberProductCollectionRepository;
+import com.zscat.mall.portal.service.HomeService;
 import com.zscat.mall.portal.util.JsonUtil;
 import com.zscat.mall.portal.vo.GeetInit;
 import com.zscat.mall.portal.vo.GeetestLib;
+import com.zscat.mall.portal.vo.HomeContentResult;
+import com.zscat.mall.portal.vo.HomeFlashPromotion;
+import com.zscat.pms.dto.PmsProductQueryParam;
 import com.zscat.pms.model.PmsProduct;
+import com.zscat.pms.model.PmsProductAttributeCategory;
 import com.zscat.pms.model.PmsProductCategory;
-import com.zscat.pms.service.PmsProductAttributeCategoryService;
-import com.zscat.pms.service.PmsProductAttributeService;
-import com.zscat.pms.service.PmsProductCategoryService;
-import com.zscat.pms.service.PmsProductService;
+import com.zscat.pms.service.*;
 import com.zscat.ums.model.SmsCoupon;
 import com.zscat.ums.model.SmsHomeAdvertise;
+import com.zscat.ums.model.SmsHomeAdvertiseExample;
 import com.zscat.ums.model.UmsMember;
 import com.zscat.ums.service.RedisService;
 import com.zscat.ums.service.SmsHomeAdvertiseService;
@@ -24,6 +29,7 @@ import com.zscat.ums.service.UmsMemberCouponService;
 import com.zscat.ums.service.UmsMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,12 +41,12 @@ import java.util.UUID;
 
 /**
  * 首页内容管理Controller
- * Created by macro on 2019/1/28.
+ * Created by zscat on 2019/1/28.
  */
 @RestController
 @Api(tags = "HomeController", description = "首页内容管理")
 @RequestMapping("/api/home")
-public class HomeController {
+public class HomeController extends ApiBaseAction {
     @Autowired
     private HomeService homeService;
     @Autowired
@@ -64,7 +70,8 @@ public class HomeController {
     private UmsMemberService memberService;
     @Autowired
     private MemberProductCollectionRepository productCollectionRepository;
-
+    @Autowired
+    private PmsBrandService brandService;
     @IgnoreAuth
     @ApiOperation("首页内容页信息展示")
     @RequestMapping(value = "/content", method = RequestMethod.GET)
@@ -74,34 +81,59 @@ public class HomeController {
         if(bannerJson!=null){
             contentResult = JsonUtil.jsonToPojo(bannerJson,HomeContentResult.class);
         }else {
-            contentResult = homeService.content();
-            redisService.set(RedisKey.HomeContentResult,JsonUtil.objectToJson(contentResult));
-            redisService.expire(RedisKey.HomeContentResult,24*60*60);
-        }
-        return new CommonResult().success(contentResult);
-    }
-    @IgnoreAuth
-    @ApiOperation("首页内容页信息展示")
-    @RequestMapping(value = "/pc/content", method = RequestMethod.GET)
-    public Object pcContent() {
-        HomeContentResult contentResult = null;
-        String bannerJson = redisService.get(RedisKey.HomeContentResult);
-        if(bannerJson!=null){
-            contentResult = JsonUtil.jsonToPojo(bannerJson,HomeContentResult.class);
-        }else {
-            contentResult = homeService.content();
+            HomeContentResult result = new HomeContentResult();
+            //获取首页广告
+            SmsHomeAdvertiseExample exampleAdv = new SmsHomeAdvertiseExample();
+            exampleAdv.createCriteria().andTypeEqualTo(1).andStatusEqualTo(1);
+            exampleAdv.setOrderByClause("sort desc");
+            result.setAdvertiseList(advertiseService.selectByExample(exampleAdv));
+            //获取推荐品牌
+            result.setBrandList(brandService.listBrand(null,1,4));
+            //获取秒杀信息
+           // result.setHomeFlashPromotion(getHomeFlashPromotion());
+            PmsProductQueryParam newQueryParam = new PmsProductQueryParam();
+            newQueryParam.setPageNum(1);newQueryParam.setPageSize(4);
+            List<PmsProduct> productList = pmsProductService.list(newQueryParam);
+            //获取新品推荐
+            result.setNewProductList(productList);
+            //获取人气推荐
+            result.setHotProductList(productList);
+            //获取推荐专题
+            result.setSubjectList(subjectService.list(null,1,4));
+            List<PmsProductAttributeCategory> productAttributeCategoryList = productAttributeCategoryService.getList(10, 1);
+
+            for (PmsProductAttributeCategory gt : productAttributeCategoryList) {
+                PmsProductQueryParam productQueryParam = new PmsProductQueryParam();
+                productQueryParam.setPageSize(6);
+                productQueryParam.setPageNum(1);
+                productQueryParam.setProductAttributeCategoryId(gt.getId());
+                List<PmsProduct> goodsList = pmsProductService.list(productQueryParam);
+                if (goodsList!=null && goodsList.size()>0){
+                    PmsProduct pmsProduct = goodsList.get(0);
+                    PmsProduct product =  new PmsProduct();
+                    BeanUtils.copyProperties(pmsProduct, product);
+                    product.setType(1);
+                    goodsList.add(product);
+                }
+                gt.setGoodsList(goodsList);
+            }
+            result.setCat_list(productAttributeCategoryList);
+
             redisService.set(RedisKey.HomeContentResult,JsonUtil.objectToJson(contentResult));
             redisService.expire(RedisKey.HomeContentResult,24*60*60);
         }
         return new CommonResult().success(contentResult);
     }
 
+
     @IgnoreAuth
     @ApiOperation("分页获取推荐商品")
     @RequestMapping(value = "/recommendProductList", method = RequestMethod.GET)
     public Object recommendProductList(@RequestParam(value = "pageSize", defaultValue = "4") Integer pageSize,
                                        @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        List<PmsProduct> productList = homeService.recommendProductList(pageSize, pageNum);
+        PmsProductQueryParam productQueryParam = new PmsProductQueryParam();
+        productQueryParam.setPageNum(pageNum);productQueryParam.setPageSize(pageSize);
+        List<PmsProduct> productList = pmsProductService.list(productQueryParam);
         return new CommonResult().success(productList);
     }
     @IgnoreAuth
@@ -109,7 +141,9 @@ public class HomeController {
     @RequestMapping(value = "/hotProductList", method = RequestMethod.GET)
     public Object hotProductList(@RequestParam(value = "pageSize", defaultValue = "4") Integer pageSize,
                                        @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        List<PmsProduct> productList = homeService.hotProductList(pageSize, pageNum);
+        PmsProductQueryParam productQueryParam = new PmsProductQueryParam();
+        productQueryParam.setPageNum(pageNum);productQueryParam.setPageSize(pageSize);
+        List<PmsProduct> productList = pmsProductService.list(productQueryParam);
         return new CommonResult().success(productList);
     }
     @IgnoreAuth
@@ -117,7 +151,9 @@ public class HomeController {
     @RequestMapping(value = "/newProductList", method = RequestMethod.GET)
     public Object newProductList(@RequestParam(value = "pageSize", defaultValue = "4") Integer pageSize,
                                  @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        List<PmsProduct> productList = homeService.newProductList(pageSize, pageNum);
+        PmsProductQueryParam productQueryParam = new PmsProductQueryParam();
+        productQueryParam.setPageNum(pageNum);productQueryParam.setPageSize(pageSize);
+        List<PmsProduct> productList = pmsProductService.list(productQueryParam);
         return new CommonResult().success(productList);
     }
     @IgnoreAuth
@@ -150,7 +186,7 @@ public class HomeController {
     @ApiOperation(value = "据分类获取专题")
     public Object subjectDetail(@RequestParam(value = "id", required = false, defaultValue = "0") Long id) {
         CmsSubject cmsSubject = subjectService.selectByPrimaryKey(id);
-        UmsMember umsMember = memberService.getCurrentMember();
+        UmsMember umsMember = this.getCurrentMember();
         if (umsMember != null && umsMember.getId() != null) {
             MemberProductCollection findCollection = productCollectionRepository.findByMemberIdAndProductId(
                     umsMember.getId(), id);
@@ -160,7 +196,7 @@ public class HomeController {
                 cmsSubject.setIs_favorite(2);
             }
         }
-        return new com.macro.mall.dto.CommonResult().success(cmsSubject);
+        return new CommonResult().success(cmsSubject);
     }
 
 
@@ -192,7 +228,7 @@ public class HomeController {
     @ApiOperation(value = "获取导航栏")
     public Object getNavList(){
 
-        return new com.macro.mall.dto.CommonResult().success(null);
+        return new CommonResult().success(null);
     }
 
     @RequestMapping(value = "/member/geetestInit",method = RequestMethod.GET)
@@ -228,7 +264,7 @@ public class HomeController {
     @RequestMapping(value = "/getHomeCouponList", method = RequestMethod.GET)
     public Object getHomeCouponList() {
         List<SmsCoupon> couponList = new ArrayList<>();
-        UmsMember umsMember = memberService.getCurrentMember();
+        UmsMember umsMember = this.getCurrentMember();
         if (umsMember != null && umsMember.getId() != null) {
             couponList = umsMemberCouponService.selectNotRecive(umsMember.getId());
         }

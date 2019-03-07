@@ -19,7 +19,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     platform: mysql
     url: jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
-    username: root_dev
+    username: root
     password: root@123
     druid:
       initial-size: 1

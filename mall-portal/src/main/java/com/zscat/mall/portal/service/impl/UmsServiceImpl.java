@@ -29,9 +29,9 @@ import java.util.Map;
 
 /**
  * 首页内容管理Service实现类
- * Created by macro on 2019/1/28.
+ * Created by zscat on 2019/1/28.
  */
-@Service
+@Service("redisService")
 public class UmsServiceImpl implements UmsService {
 
     @Resource

@@ -1,7 +1,7 @@
-package com.macro.mall.portal;
+package com.zscat.mall.portal;
 
-import com.macro.mall.portal.dao.PortalProductDao;
-import com.macro.mall.portal.domain.PromotionProduct;
+import com.zscat.mall.portal.dao.PortalProductDao;
+import com.zscat.mall.portal.domain.PromotionProduct;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by macro on 2018/8/27.
+ * Created by zscat on 2018/8/27.
  * 前台商品查询逻辑单元测试
  */
 @RunWith(SpringRunner.class)

@@ -11,9 +11,9 @@ import java.util.List;
 
 /**
  * 商品优选Service实现类
- * Created by macro on 2018/6/1.
+ * Created by zscat on 2018/6/1.
  */
-@Service
+@Service("redisService")
 public class CmsPrefrenceAreaServiceImpl implements CmsPrefrenceAreaService {
     @Autowired
     private CmsPrefrenceAreaMapper prefrenceAreaMapper;
