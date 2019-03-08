@@ -79,8 +79,6 @@ nprogress | 进度条控件 | [https://github.com/rstacruz/nprogress](https://gi
 #### 软件架构
 软件架构说明
 
-
-
 - ├── mall-common -- 工具类，通用类几乎不依赖任务jar包
 - ├── mall-core -- 工具类，核心类
 - |-- cms-api     内容服务中心接口
@@ -104,8 +102,9 @@ nprogress | 进度条控件 | [https://github.com/rstacruz/nprogress](https://gi
 
 模型类无get,set方法，采用lombok注解方式实现。 需要安装插件
 
-- 1. 创建数据库mall
-- 2.启动zookeep
+- 1. 创建数据库mall,
+- 2.下载群里的zscat-tools,一键启动zookeep,redis,nginx rabbitmq,
+需要安装mongodb，配置相关地址
 - 3.启动cms-service，运行springboot的主类
 - 4.启动ums-service，运动springboot的主类
 - 5.启动pms-service，运动springboot的主类

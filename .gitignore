@@ -10,7 +10,7 @@ src/main/webapp/WEB-INF/views/
 src/main/webapp/static/
 src/main/webapp/test/
 
-.logs
+*.log
 # User-specific stuff:
 
 ### IntelliJ IDEA ###
@@ -18,5 +18,5 @@ src/main/webapp/test/
 .idea
 *.iws
 *.ipr
-logs
+*logs
 bak.zip
