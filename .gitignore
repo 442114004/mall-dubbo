@@ -18,3 +18,5 @@ src/main/webapp/test/
 .idea
 *.iws
 *.ipr
+logs
+bak.zip
