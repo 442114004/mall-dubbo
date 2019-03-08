@@ -13,6 +13,9 @@
 
 > 如有问题或者好的建议可以在 Issues 中提。
 
+单机版mall商城 https://gitee.com/catshen/mall-applet 
+dubbo版本mall商城github  https://github.com/shenzhuan/mall-dubbo
+dubbo版本mall商城码云地址  https://gitee.com/catshen/mall-dubbo
 zscat-platform是高效率，低封装，面向学习型，面向微服的开源Java EE开发框架。
 
 zscat-platform是在SpringBoot基础上搭建的一个Java基础开发平台，MyBatis为数据访问层，ApacheShiro为权限授权层，Ehcahe对常用数据进行缓存,dubbo为数据远程调用。
