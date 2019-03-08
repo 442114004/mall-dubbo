@@ -1,4 +1,4 @@
-package com.zscat.ums.service;
+package com.zscat.mall.portal.service;
 
 /**
  * redis操作Service,

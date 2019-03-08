@@ -34,4 +34,9 @@ public interface UmsMemberService {
     int updateByPrimaryKey(UmsMember record);
 
     UmsMember queryByOpenId(String openId);
+    UmsMember getByUsername(String username);
+    void updateIntegration(Long id, Integer integration);
+
+
+
 }

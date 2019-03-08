@@ -5,6 +5,7 @@ import com.zscat.common.exception.ApiRRException;
 import com.zscat.common.result.CommonResult;
 import com.zscat.mall.portal.component.CancelOrderSender;
 import com.zscat.mall.portal.service.OmsPortalOrderService;
+import com.zscat.mall.portal.service.RedisService;
 import com.zscat.oms.dto.*;
 import com.zscat.oms.model.*;
 import com.zscat.oms.service.*;
@@ -29,7 +30,7 @@ import java.util.*;
  * 前台订单管理Service
  * Created by zscat on 2018/8/30.
  */
-@Service("redisService")
+@Service
 public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
     @Autowired
     private UmsMemberService memberService;
@@ -333,7 +334,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
             updateCouponStatus(timeOutOrder.getCouponId(), timeOutOrder.getMemberId(), 0);
             //返还使用积分
             if (timeOutOrder.getUseIntegration() != null) {
-                UmsMember member = memberService.getById(timeOutOrder.getMemberId());
+                UmsMember member = memberService.selectByPrimaryKey(timeOutOrder.getMemberId());
                 memberService.updateIntegration(timeOutOrder.getMemberId(), member.getIntegration() + timeOutOrder.getUseIntegration());
             }
         }
@@ -363,7 +364,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
             updateCouponStatus(cancelOrder.getCouponId(), cancelOrder.getMemberId(), 0);
             //返还使用积分
             if (cancelOrder.getUseIntegration() != null) {
-                UmsMember member = memberService.getById(cancelOrder.getMemberId());
+                UmsMember member = memberService.selectByPrimaryKey(cancelOrder.getMemberId());
                 memberService.updateIntegration(cancelOrder.getMemberId(), member.getIntegration() + cancelOrder.getUseIntegration());
             }
         }

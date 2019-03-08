@@ -16,7 +16,7 @@ import java.util.List;
  * 会员收藏Service实现类
  * Created by zscat on 2018/8/2.
  */
-@Service("redisService")
+@Service
 public class MemberCollectionServiceImpl implements MemberCollectionService {
     @Autowired
     private MemberProductCollectionRepository productCollectionRepository;

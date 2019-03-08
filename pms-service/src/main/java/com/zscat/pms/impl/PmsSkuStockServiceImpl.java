@@ -16,7 +16,7 @@ import java.util.List;
  * 商品sku库存管理Service实现类
  * Created by zscat on 2018/4/27.
  */
-@Service("redisService")
+@Service("pmsSkuStockService")
 public class PmsSkuStockServiceImpl implements PmsSkuStockService {
     @Resource
     private PmsSkuStockMapper skuStockMapper;

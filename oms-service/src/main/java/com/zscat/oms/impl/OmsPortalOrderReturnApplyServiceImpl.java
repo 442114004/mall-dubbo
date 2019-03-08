@@ -14,7 +14,7 @@ import java.util.Date;
  * 订单退货管理Service实现类
  * Created by zscat on 2018/10/17.
  */
-@Service("redisService")
+@Service("omsPortalOrderReturnApplyService")
 public class OmsPortalOrderReturnApplyServiceImpl implements OmsPortalOrderReturnApplyService {
     @Resource
     private OmsOrderReturnApplyMapper returnApplyMapper;

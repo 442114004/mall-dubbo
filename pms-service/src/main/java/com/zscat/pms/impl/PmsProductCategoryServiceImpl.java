@@ -18,7 +18,7 @@ import java.util.List;
  * PmsProductCategoryService实现类
  * Created by zscat on 2018/4/26.
  */
-@Service("redisService")
+@Service("pmsProductCategoryService")
 public class PmsProductCategoryServiceImpl implements PmsProductCategoryService {
     @Resource
     private PmsProductCategoryMapper productCategoryMapper;

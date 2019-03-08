@@ -12,7 +12,7 @@ import java.util.List;
  * 会员关注Service实现类
  * Created by zscat on 2018/8/2.
  */
-@Service("redisService")
+@Service
 public class MemberAttentionServiceImpl implements MemberAttentionService {
     @Autowired
     private MemberBrandAttentionRepository memberBrandAttentionRepository;

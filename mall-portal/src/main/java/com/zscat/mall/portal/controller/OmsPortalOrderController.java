@@ -4,6 +4,7 @@ package com.zscat.mall.portal.controller;
 import com.zscat.common.result.CommonResult;
 import com.zscat.mall.portal.constant.RedisKey;
 import com.zscat.mall.portal.service.OmsPortalOrderService;
+import com.zscat.mall.portal.service.RedisService;
 import com.zscat.mall.portal.util.JsonUtil;
 import com.zscat.oms.dto.*;
 import com.zscat.oms.model.OmsOrder;
@@ -11,11 +12,9 @@ import com.zscat.oms.model.OmsOrderItem;
 import com.zscat.oms.model.OmsOrderItemExample;
 import com.zscat.oms.service.OmsOrderItemService;
 import com.zscat.oms.service.OmsOrderService;
-import com.zscat.ums.service.RedisService;
 import com.zscat.ums.service.UmsMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,13 +31,13 @@ import java.util.Map;
 @RequestMapping("/api/order")
 public class OmsPortalOrderController extends ApiBaseAction{
 
-    @Autowired
+    @Resource
     private OmsOrderService orderService;
-    @Autowired
+    @Resource
     private UmsMemberService umsMemberService;
-    @Autowired
+    @Resource
     private RedisService redisService;
-    @Autowired
+    @Resource
     private OmsOrderItemService orderItemService;
 
     @Resource

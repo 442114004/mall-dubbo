@@ -6,20 +6,26 @@
             http://code.alibabatech.com/schema/dubbo
             http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-	<dubbo:application name="dubbo-sport-provider" />
+	<dubbo:application name="dubbo-cms-provider" />
 
-	<dubbo:registry id="sport-service"  address="${zk.url}" check="false"/>
+	<dubbo:registry id="cms-service"  address="${zk.url}" check="false"/>
 
-	<dubbo:protocol name="dubbo" dispatcher="all" threadpool="cached" threads="1500"/>
+	<dubbo:protocol name="dubbo" port="${zk.dubbo-port}" dispatcher="all" threadpool="cached" threads="1500"/>
 
 	<!-- 提供服务接口 -->
 
-
-	<!--<dubbo:service registry="sport-service"
-				   interface="com.fittime.sport.service.QuestionService"
-				   ref="questionService"
+	<dubbo:service registry="cms-service"
+				   interface="com.zscat.cms.service.CmsPrefrenceAreaService"
+				   ref="cmsPrefrenceAreaService"
 				   loadbalance="leastactive"
 				   retries="1"
 				   executes="1500"
-				   timeout="30000"/>-->
+				   timeout="30000"/>
+	<dubbo:service registry="cms-service"
+				   interface="com.zscat.cms.service.CmsSubjectService"
+				   ref="cmsSubjectService"
+				   loadbalance="leastactive"
+				   retries="1"
+				   executes="1500"
+				   timeout="30000"/>
 </beans>

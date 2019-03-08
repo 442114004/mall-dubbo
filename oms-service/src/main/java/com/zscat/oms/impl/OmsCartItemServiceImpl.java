@@ -14,7 +14,6 @@ import com.zscat.ums.dto.SmsCouponHistoryDetail;
 import com.zscat.ums.model.SmsCouponProductCategoryRelation;
 import com.zscat.ums.model.SmsCouponProductRelation;
 import com.zscat.ums.model.UmsMember;
-import com.zscat.ums.service.UmsMemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -29,7 +28,7 @@ import java.util.List;
  * 购物车管理Service实现类
  * Created by zscat on 2018/8/2.
  */
-@Service("redisService")
+@Service("omsCartItemService")
 public class OmsCartItemServiceImpl implements OmsCartItemService {
     @Resource
     private OmsCartItemMapper cartItemMapper;
@@ -37,8 +36,7 @@ public class OmsCartItemServiceImpl implements OmsCartItemService {
     private PortalProductDao productDao;
     @Resource
     private OmsPromotionService promotionService;
-    @Resource
-    private UmsMemberService memberService;
+
 
     @Override
     public OmsCartItem add(OmsCartItem cartItem,PmsProduct pmsProduct,UmsMember currentMember) {

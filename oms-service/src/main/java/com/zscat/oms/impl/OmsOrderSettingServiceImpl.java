@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  * 订单设置管理Service实现类
  * Created by zscat on 2018/10/16.
  */
-@Service("redisService")
+@Service("omsOrderSettingService")
 public class OmsOrderSettingServiceImpl implements OmsOrderSettingService {
     @Resource
     private OmsOrderSettingMapper orderSettingMapper;

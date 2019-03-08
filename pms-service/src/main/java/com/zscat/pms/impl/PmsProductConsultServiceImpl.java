@@ -14,7 +14,7 @@ import java.util.List;
  * 商品品牌Service
  * Created by zscat on 2018/4/26.
  */
-@Service("redisService")
+@Service("pmsProductConsultService")
 public class PmsProductConsultServiceImpl implements PmsProductConsultService {
 
     @Resource

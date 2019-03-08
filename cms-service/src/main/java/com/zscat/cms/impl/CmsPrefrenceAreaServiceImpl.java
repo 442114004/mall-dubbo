@@ -13,7 +13,7 @@ import java.util.List;
  * 商品优选Service实现类
  * Created by zscat on 2018/6/1.
  */
-@Service("redisService")
+@Service("cmsPrefrenceAreaService")
 public class CmsPrefrenceAreaServiceImpl implements CmsPrefrenceAreaService {
     @Autowired
     private CmsPrefrenceAreaMapper prefrenceAreaMapper;

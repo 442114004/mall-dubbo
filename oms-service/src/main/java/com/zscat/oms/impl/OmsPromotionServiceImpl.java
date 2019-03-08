@@ -20,7 +20,7 @@ import java.util.*;
  * Created by zscat on 2018/8/27.
  * 促销管理Service实现类
  */
-@Service("redisService")
+@Service("omsPromotionService")
 public class OmsPromotionServiceImpl implements OmsPromotionService {
     @Resource
     private PortalProductDao portalProductDao;

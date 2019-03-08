@@ -3,8 +3,8 @@ package com.zscat.mall.portal.controller;
 
 import com.zscat.common.annotation.IgnoreAuth;
 import com.zscat.common.result.CommonResult;
+import com.zscat.mall.portal.service.UmsService;
 import com.zscat.ums.model.UmsMember;
-import com.zscat.ums.service.UmsMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import java.util.Map;
 @RequestMapping("/api/member")
 public class UmsMemberController extends ApiBaseAction{
     @Autowired
-    private UmsMemberService memberService;
+    private UmsService memberService;
     @Value("${jwt.tokenHeader}")
     private String tokenHeader;
     @Value("${jwt.tokenHead}")

@@ -10,18 +10,10 @@
 
 	<dubbo:registry id="ums-service"  address="${zk.url}" check="false"/>
 
-	<dubbo:protocol name="dubbo" dispatcher="all" threadpool="cached" threads="1500"/>
+	<dubbo:protocol name="dubbo" port="${zk.dubbo-port}" dispatcher="all" threadpool="cached" threads="1500"/>
 
 	<!-- 提供服务接口 -->
 
-
-	<dubbo:service registry="ums-service"
-				   interface="com.zscat.ums.service.RedisService"
-				   ref="redisService"
-				   loadbalance="leastactive"
-				   retries="1"
-				   executes="1500"
-				   timeout="30000"/>
 
 	<dubbo:service registry="ums-service"
 				   interface="com.zscat.ums.service.SmsCouponHistoryService"

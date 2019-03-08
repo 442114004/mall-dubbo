@@ -6,8 +6,245 @@
             http://code.alibabatech.com/schema/dubbo
             http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-	 <dubbo:registry id="label-service"  address="${zk.url}" check="false"/>
+	<dubbo:application name="mall-portal" />
 
+	 <dubbo:registry id="cms-service"  address="${zk.url}" check="false"/>
+	<dubbo:registry id="ums-service"  address="${zk.url}" check="false"/>
+	<dubbo:registry id="pms-service"  address="${zk.url}" check="false"/>
+	<dubbo:registry id="oms-service"  address="${zk.url}" check="false"/>
 	<!--<dubbo:reference registry="label-service" id="labelRelationService" interface="com.fittime.label.service.LabelRelationService" check="false"/>
 -->
+
+	<!-- cms提供服务接口 -->
+	<dubbo:reference registry="cms-service"
+				   interface="com.zscat.cms.service.CmsPrefrenceAreaService"
+				   id="cmsPrefrenceAreaService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="cms-service"
+				   interface="com.zscat.cms.service.CmsSubjectService"
+				   id="cmsSubjectService"
+				   check="false"
+				   />
+
+
+	<!--ums 提供服务接口 -->
+
+	<dubbo:reference registry="ums-service"
+				   interface="com.zscat.ums.service.SmsCouponHistoryService"
+				   id="smsCouponHistoryService"
+				   
+				   
+				   check="false"
+				   />
+
+	<dubbo:reference registry="ums-service"
+				   interface="com.zscat.ums.service.SmsCouponService"
+				   id="smsCouponService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="ums-service"
+				   interface="com.zscat.ums.service.SmsFlashPromotionService"
+				   id="smsFlashPromotionService"
+				   
+				   
+				   check="false"
+				   />
+
+	<dubbo:reference registry="ums-service"
+				   interface="com.zscat.ums.service.SmsFlashPromotionSessionService"
+				   id="smsFlashPromotionSessionService"
+				   
+				   
+				   check="false"
+				   />
+
+	<dubbo:reference registry="ums-service"
+				   interface="com.zscat.ums.service.SmsHomeAdvertiseService"
+				   id="smsHomeAdvertiseService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="ums-service"
+				   interface="com.zscat.ums.service.UmsAdminService"
+				   id="umsAdminService"
+				   
+				   
+				   check="false"
+				   />
+
+	<dubbo:reference registry="ums-service"
+				   interface="com.zscat.ums.service.UmsIntegrationConsumeSettingService"
+				   id="umsIntegrationConsumeSettingService"
+				   
+				   
+				   check="false"
+				   />
+
+	<dubbo:reference registry="ums-service"
+				   interface="com.zscat.ums.service.UmsMemberService"
+				   id="umsMemberService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="ums-service"
+				   interface="com.zscat.ums.service.UmsMemberLevelService"
+				   id="umsMemberLevelService"
+				   
+				   
+				   check="false"
+				   />
+
+	<dubbo:reference registry="ums-service"
+				   interface="com.zscat.ums.service.UmsMemberReceiveAddressService"
+				   id="umsMemberReceiveAddressService"
+				   
+				   
+				   check="false"
+				   />
+
+	<dubbo:reference registry="ums-service"
+				   interface="com.zscat.ums.service.UmsMemberCouponService"
+				   id="umsMemberCouponService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="ums-service"
+				   interface="com.zscat.ums.service.UmsPermissionService"
+				   id="umsPermissionService"
+				   
+				   
+				   check="false"
+				   />
+
+	<dubbo:reference registry="ums-service"
+				   interface="com.zscat.ums.service.UmsRoleService"
+				   id="umsRoleService"
+				   
+				   
+				   check="false"
+				   />
+
+	<!-- pms     提供服务接口  -           -->
+	<dubbo:reference registry="pms-service"
+				   interface="com.zscat.pms.service.PmsBrandService"
+				   id="pmsBrandService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="pms-service"
+				   interface="com.zscat.pms.service.PmsProductAttributeCategoryService"
+				   id="pmsProductAttributeCategoryService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="pms-service"
+				   interface="com.zscat.pms.service.PmsProductAttributeService"
+				   id="pmsProductAttributeService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="pms-service"
+				   interface="com.zscat.pms.service.PmsProductCategoryService"
+				   id="pmsProductCategoryService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="pms-service"
+				   interface="com.zscat.pms.service.PmsProductConsultService"
+				   id="pmsProductConsultService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="pms-service"
+				   interface="com.zscat.pms.service.PmsProductService"
+				   id="pmsProductService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="pms-service"
+				   interface="com.zscat.pms.service.PmsSkuStockService"
+				   id="pmsSkuStockService"
+				   
+				   
+				   check="false"
+				   />
+
+	<!-- oms 提供服务接口 -->
+	<dubbo:reference registry="oms-service"
+				   interface="com.zscat.oms.service.OmsCartItemService"
+				   id="omsCartItemService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="oms-service"
+				   interface="com.zscat.oms.service.OmsCompanyAddressService"
+				   id="omsCompanyAddressService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="oms-service"
+				   interface="com.zscat.oms.service.OmsOrderItemService"
+				   id="omsOrderItemService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="oms-service"
+				   interface="com.zscat.oms.service.OmsOrderReturnApplyService"
+				   id="omsOrderReturnApplyService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="oms-service"
+				   interface="com.zscat.oms.service.OmsOrderReturnReasonService"
+				   id="omsOrderReturnReasonService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="oms-service"
+				   interface="com.zscat.oms.service.OmsOrderService"
+				   id="omsOrderService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="oms-service"
+				   interface="com.zscat.oms.service.OmsOrderSettingService"
+				   id="omsOrderSettingService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="oms-service"
+				   interface="com.zscat.oms.service.OmsPortalOrderReturnApplyService"
+				   id="omsPortalOrderReturnApplyService"
+				   
+				   
+				   check="false"
+				   />
+	<dubbo:reference registry="oms-service"
+				   interface="com.zscat.oms.service.OmsPromotionService"
+				   id="omsPromotionService"
+				   
+				   
+				   check="false"
+				   />
 </beans>

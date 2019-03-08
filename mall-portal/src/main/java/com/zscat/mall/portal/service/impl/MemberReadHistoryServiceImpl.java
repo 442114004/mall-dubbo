@@ -15,7 +15,7 @@ import java.util.List;
  * 会员浏览记录管理Service实现类
  * Created by zscat on 2018/8/3.
  */
-@Service("redisService")
+@Service
 public class MemberReadHistoryServiceImpl implements MemberReadHistoryService {
     @Autowired
     private MemberReadHistoryRepository memberReadHistoryRepository;

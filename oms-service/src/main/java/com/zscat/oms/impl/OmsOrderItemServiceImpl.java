@@ -6,10 +6,12 @@ import com.zscat.oms.model.OmsOrderItem;
 import com.zscat.oms.model.OmsOrderItemExample;
 import com.zscat.oms.service.OmsOrderItemService;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
+@Service("omsOrderItemService")
 public class OmsOrderItemServiceImpl implements OmsOrderItemService {
     @Resource
     private OmsOrderItemMapper orderItemMapper;

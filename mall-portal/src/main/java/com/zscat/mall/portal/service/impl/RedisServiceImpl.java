@@ -1,7 +1,7 @@
-package com.zscat.oms.impl;
+package com.zscat.mall.portal.service.impl;
 
 
-import com.zscat.ums.service.RedisService;
+import com.zscat.mall.portal.service.RedisService;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  * redis操作Service的实现类
  * Created by zscat on 2018/8/7.
  */
-@Service("redisService")
+@Service
 public class RedisServiceImpl implements RedisService {
     @Resource
     private StringRedisTemplate stringRedisTemplate;

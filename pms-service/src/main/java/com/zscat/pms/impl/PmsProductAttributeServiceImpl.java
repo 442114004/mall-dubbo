@@ -20,7 +20,7 @@ import java.util.List;
  * 商品属性Service实现类
  * Created by zscat on 2018/4/26.
  */
-@Service("redisService")
+@Service("pmsProductAttributeService")
 public class PmsProductAttributeServiceImpl implements PmsProductAttributeService {
     @Resource
     private PmsProductAttributeMapper productAttributeMapper;

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * 订单管理Service实现类
  * Created by zscat on 2018/10/11.
  */
-@Service("redisService")
+@Service("omsOrderService")
 public class OmsOrderServiceImpl implements OmsOrderService {
     @Resource
     private OmsOrderMapper orderMapper;

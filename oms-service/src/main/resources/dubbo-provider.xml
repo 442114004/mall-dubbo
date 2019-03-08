@@ -6,20 +6,76 @@
             http://code.alibabatech.com/schema/dubbo
             http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-	<dubbo:application name="dubbo-sport-provider" />
+	<dubbo:application name="dubbo-oms-provider" />
 
-	<dubbo:registry id="sport-service"  address="${zk.url}" check="false"/>
+	<dubbo:registry id="oms-service"  address="${zk.url}" check="false"/>
 
-	<dubbo:protocol name="dubbo" dispatcher="all" threadpool="cached" threads="1500"/>
+	<dubbo:protocol name="dubbo" port="${zk.dubbo-port}" dispatcher="all" threadpool="cached" threads="1500"/>
 
 	<!-- 提供服务接口 -->
 
 
-	<!--<dubbo:service registry="sport-service"
-				   interface="com.fittime.sport.service.QuestionService"
-				   ref="questionService"
+	<dubbo:service registry="oms-service"
+				   interface="com.zscat.oms.service.OmsCartItemService"
+				   ref="omsCartItemService"
 				   loadbalance="leastactive"
 				   retries="1"
 				   executes="1500"
-				   timeout="30000"/>-->
+				   timeout="30000"/>
+	<dubbo:service registry="oms-service"
+				   interface="com.zscat.oms.service.OmsCompanyAddressService"
+				   ref="omsCompanyAddressService"
+				   loadbalance="leastactive"
+				   retries="1"
+				   executes="1500"
+				   timeout="30000"/>
+	<dubbo:service registry="oms-service"
+				   interface="com.zscat.oms.service.OmsOrderItemService"
+				   ref="omsOrderItemService"
+				   loadbalance="leastactive"
+				   retries="1"
+				   executes="1500"
+				   timeout="30000"/>
+	<dubbo:service registry="oms-service"
+				   interface="com.zscat.oms.service.OmsOrderReturnApplyService"
+				   ref="omsOrderReturnApplyService"
+				   loadbalance="leastactive"
+				   retries="1"
+				   executes="1500"
+				   timeout="30000"/>
+	<dubbo:service registry="oms-service"
+				   interface="com.zscat.oms.service.OmsOrderReturnReasonService"
+				   ref="omsOrderReturnReasonService"
+				   loadbalance="leastactive"
+				   retries="1"
+				   executes="1500"
+				   timeout="30000"/>
+	<dubbo:service registry="oms-service"
+				   interface="com.zscat.oms.service.OmsOrderService"
+				   ref="omsOrderService"
+				   loadbalance="leastactive"
+				   retries="1"
+				   executes="1500"
+				   timeout="30000"/>
+	<dubbo:service registry="oms-service"
+				   interface="com.zscat.oms.service.OmsOrderSettingService"
+				   ref="omsOrderSettingService"
+				   loadbalance="leastactive"
+				   retries="1"
+				   executes="1500"
+				   timeout="30000"/>
+	<dubbo:service registry="oms-service"
+				   interface="com.zscat.oms.service.OmsPortalOrderReturnApplyService"
+				   ref="omsPortalOrderReturnApplyService"
+				   loadbalance="leastactive"
+				   retries="1"
+				   executes="1500"
+				   timeout="30000"/>
+	<dubbo:service registry="oms-service"
+				   interface="com.zscat.oms.service.OmsPromotionService"
+				   ref="omsPromotionService"
+				   loadbalance="leastactive"
+				   retries="1"
+				   executes="1500"
+				   timeout="30000"/>
 </beans>

@@ -1,14 +1,14 @@
-package com.zscat.mall.portal;
+package com.macro.mall.portal;
 
-import com.zscat.mall.portal.dao.PortalProductDao;
-import com.zscat.mall.portal.domain.PromotionProduct;
-import org.junit.Assert;
+
+import com.zscat.ums.model.UmsMember;
+import com.zscat.ums.service.UmsMemberService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +19,8 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PortalProductDaoTests {
-    @Autowired
-    private PortalProductDao portalProductDao;
+    @Resource
+    private UmsMemberService memberService;
 
     @Test
     public void testGetPromotionProductList() {
@@ -29,7 +29,7 @@ public class PortalProductDaoTests {
         ids.add(27L);
         ids.add(28L);
         ids.add(29L);
-        List<PromotionProduct> promotionProductList = portalProductDao.getPromotionProductList(ids);
-        Assert.assertEquals(4, promotionProductList.size());
+        UmsMember umsMember = memberService.selectByPrimaryKey(1L);
+        System.out.println(umsMember);
     }
 }

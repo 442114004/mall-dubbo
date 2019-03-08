@@ -7,7 +7,6 @@ import com.zscat.mall.portal.component.RestfulAccessDeniedHandler;
 import com.zscat.mall.portal.vo.MemberDetails;
 import com.zscat.ums.model.UmsMember;
 import com.zscat.ums.service.UmsMemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +27,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import javax.annotation.Resource;
+
 
 /**
  * SpringSecurity的配置
@@ -37,11 +38,11 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
+    @Resource
     private UmsMemberService memberService;
-    @Autowired
+    @Resource
     private RestfulAccessDeniedHandler restfulAccessDeniedHandler;
-    @Autowired
+    @Resource
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     @Override

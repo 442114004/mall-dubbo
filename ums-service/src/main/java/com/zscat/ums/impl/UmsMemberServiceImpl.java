@@ -5,6 +5,7 @@ import com.zscat.ums.model.UmsMember;
 import com.zscat.ums.model.UmsMemberExample;
 import com.zscat.ums.service.UmsMemberService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -79,4 +80,21 @@ public class UmsMemberServiceImpl implements UmsMemberService {
         return memberMapper.queryByOpenId(openId);
     }
 
+    @Override
+    public UmsMember getByUsername(String username) {
+        UmsMemberExample example = new UmsMemberExample();
+        example.createCriteria().andUsernameEqualTo(username);
+        List<UmsMember> memberList = memberMapper.selectByExample(example);
+        if (!CollectionUtils.isEmpty(memberList)) {
+            return memberList.get(0);
+        }
+        return null;
+    }
+    @Override
+    public void updateIntegration(Long id, Integer integration) {
+        UmsMember record = new UmsMember();
+        record.setId(id);
+        record.setIntegration(integration);
+        memberMapper.updateByPrimaryKeySelective(record);
+    }
 }
